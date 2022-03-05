@@ -171,7 +171,6 @@ return packer.startup(function(use)
 
 		-- UI
 		"ray-x/lsp_signature.nvim",
-		"rmagatti/goto-preview",
 		"folke/trouble.nvim",
 		{
 			"CosmicNvim/cosmic-ui",
