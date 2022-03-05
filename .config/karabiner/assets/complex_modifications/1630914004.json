@@ -1,0 +1,48 @@
+{
+  "title": "Change option + n/p to option + left arrow/right arrow",
+  "rules": [
+    {
+      "description": "option + n/p to option + arrows",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow",
+              "modifiers": [
+                "option"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": [
+                "option"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
