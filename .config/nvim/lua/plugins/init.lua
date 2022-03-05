@@ -102,6 +102,7 @@ return packer.startup(function(use)
 	require("plugins.config.alpha")
 	require("plugins.config.toggleterm")
 	require("plugins.config.marks")
+	require("plugins.config.searchbox")
 	use({
 		"akinsho/bufferline.nvim",
 		"nvim-lualine/lualine.nvim",
@@ -120,6 +121,12 @@ return packer.startup(function(use)
 		"kevinhwang91/nvim-bqf",
 		"akinsho/toggleterm.nvim",
 		"chentau/marks.nvim",
+		{
+			"VonHeikemen/searchbox.nvim",
+			requires = {
+				{ "MunifTanjim/nui.nvim" },
+			},
+		},
 	})
 
 	-- Code reading
@@ -181,6 +188,7 @@ return packer.startup(function(use)
 		"hrsh7th/cmp-cmdline", -- cmdline completions
 		"saadparwaiz1/cmp_luasnip", -- snippet completions
 		"hrsh7th/cmp-nvim-lsp",
+		{ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" },
 
 		"L3MON4D3/LuaSnip", --snippet engine
 		"rafamadriz/friendly-snippets", -- a bunch of snippets to use
