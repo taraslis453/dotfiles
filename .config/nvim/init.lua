@@ -1,0 +1,5 @@
+require("common.options")
+require("common.keymaps")
+require("common.autocommands")
+require("plugins.init")
+require("common.highlights")
