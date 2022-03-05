@@ -50,7 +50,7 @@ keymap("n", "<CR>", "o<Esc>", opts)
 keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
 keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
 
-vim.cmd([[nnoremap \ :noh<return>]])
+vim.cmd([[nnoremap  \ :noh<return>]])
 -- Don't yank on visual paste
 keymap("v", "p", '"_dP', opts)
 keymap("n", "]c", ":cn<CR>", opts)
