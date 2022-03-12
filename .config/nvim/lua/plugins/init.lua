@@ -1,6 +1,5 @@
 -- caching loading plugins
 require("plugins.config.impatient")
-
 local fn = vim.fn
 
 -- Automatically install packer
@@ -90,14 +89,14 @@ return packer.startup(function(use)
 
 	-- UI
 	require("plugins.config.bufferline")
-	require("plugins.config.lualine")
 	require("plugins.config.project")
+	require("plugins.config.feline")
 	require("plugins.config.alpha")
 	require("plugins.config.toggleterm")
 	require("plugins.config.searchbox")
 	use({
 		"akinsho/bufferline.nvim",
-		"nvim-lualine/lualine.nvim",
+		"feline-nvim/feline.nvim",
 		{
 			"ahmedkhalf/project.nvim",
 			wants = { "telescope" },
