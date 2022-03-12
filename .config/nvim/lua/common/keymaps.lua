@@ -45,6 +45,9 @@ keymap("n", "<C-w>i", ":split<CR>", opts)
 
 -- insert blank line on enter
 keymap("n", "<CR>", "o<Esc>", opts)
+-- TODO: make it work
+-- https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
+-- keymap("n", "<S-CR>", "O<Esc>", opts)
 
 -- move lines
 keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
@@ -53,8 +56,8 @@ keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
 vim.cmd([[nnoremap  \ :noh<return>]])
 -- Don't yank on visual paste
 keymap("v", "p", '"_dP', opts)
-keymap("n", "]c", ":cn<CR>", opts)
-keymap("n", "[c", ":cp<CR>", opts)
+keymap("n", "]q", ":cn<CR>", opts)
+keymap("n", "[q", ":cp<CR>", opts)
 
 -- remove /n on copy in terminal with C-v
 vim.cmd([[

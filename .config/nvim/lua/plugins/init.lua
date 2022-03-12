@@ -86,13 +86,6 @@ return packer.startup(function(use)
 		"phaazon/hop.nvim",
 		"unblevable/quick-scope",
 		"chaoren/vim-wordmotion",
-		{
-			"abecodes/tabout.nvim",
-			config = function()
-				require("tabout").setup()
-			end,
-			wants = { "nvim-treesitter" },
-		},
 	})
 
 	-- UI
@@ -101,7 +94,6 @@ return packer.startup(function(use)
 	require("plugins.config.project")
 	require("plugins.config.alpha")
 	require("plugins.config.toggleterm")
-	require("plugins.config.marks")
 	require("plugins.config.searchbox")
 	use({
 		"akinsho/bufferline.nvim",
@@ -111,16 +103,8 @@ return packer.startup(function(use)
 			wants = { "telescope" },
 		},
 		"goolord/alpha-nvim",
-		{
-			"anuvyklack/pretty-fold.nvim",
-			config = function()
-				require("pretty-fold").setup({})
-				require("pretty-fold.preview").setup()
-			end,
-		},
 		"kevinhwang91/nvim-bqf",
 		"akinsho/toggleterm.nvim",
-		"chentau/marks.nvim",
 		{
 			"VonHeikemen/searchbox.nvim",
 			requires = {
@@ -176,6 +160,14 @@ return packer.startup(function(use)
 			"CosmicNvim/cosmic-ui",
 			requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 		},
+		-- TODO: use it on 0.7 nvim
+		-- {
+		-- 	"narutoxy/dim.lua",
+		-- 	requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+		-- 	config = function()
+		-- 		require("dim").setup()
+		-- 	end,
+		-- },
 	})
 
 	-- Completion
@@ -196,7 +188,19 @@ return packer.startup(function(use)
 	-- Git
 	require("plugins.config.gitsigns")
 	require("plugins.config.diffview")
-	use({ "lewis6991/gitsigns.nvim", "sindrets/diffview.nvim" })
+	require("plugins.config.octo")
+	use({
+		{
+			"pwntester/octo.nvim",
+			requires = {
+				"nvim-lua/plenary.nvim",
+				"nvim-telescope/telescope.nvim",
+				"kyazdani42/nvim-web-devicons",
+			},
+		},
+		"lewis6991/gitsigns.nvim",
+		"sindrets/diffview.nvim",
+	})
 
 	-- Utils
 	use({
