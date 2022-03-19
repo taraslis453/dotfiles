@@ -64,14 +64,6 @@ bufferline.setup({
 					end,
 				},
 				{
-					name = "api",
-					matcher = function(buf)
-						if not buf.filename:match("api") then
-							return buf.path:match("api")
-						end
-					end,
-				},
-				{
 					name = "service",
 					matcher = function(buf)
 						return buf.path:match("service")
@@ -83,7 +75,14 @@ bufferline.setup({
 						return buf.path:match("domain")
 					end,
 				},
-
+				{
+					name = "api",
+					matcher = function(buf)
+						if not buf.filename:match("api") then
+							return buf.path:match("api")
+						end
+					end,
+				},
 				{
 					name = "shared",
 					matcher = function(buf)
@@ -130,11 +129,11 @@ bufferline.setup({
 		},
 		error_selected = {
 			guifg = { attribute = "fg", highlight = "DiagnosticError" },
-			gui = "none",
+			gui = "bold,italic",
 		},
 		error_diagnostic_selected = {
 			guifg = { attribute = "fg", highlight = "DiagnosticError" },
-			gui = "none",
+			gui = "bold,italic",
 		},
 		error_diagnostic = {
 			guifg = { attribute = "fg", highlight = "DiagnosticError" },
@@ -159,11 +158,11 @@ bufferline.setup({
 		},
 		warning_selected = {
 			guifg = { attribute = "fg", highlight = "DiagnosticWarn" },
-			gui = "none",
+			gui = "bold,italic",
 		},
 		warning_diagnostic_selected = {
 			guifg = { attribute = "fg", highlight = "DiagnosticWarn" },
-			gui = "none",
+			gui = "bold,italic",
 		},
 		warning_visible = {
 			guifg = { attribute = "fg", highlight = "DiagnosticWarn" },
@@ -184,11 +183,11 @@ bufferline.setup({
 		},
 		info_selected = {
 			guifg = { attribute = "fg", highlight = "DiagnosticInfo" },
-			gui = "none",
+			gui = "bold,italic",
 		},
 		info_diagnostic_selected = {
 			guifg = { attribute = "fg", highlight = "DiagnosticInfo" },
-			gui = "none",
+			gui = "bold,italic",
 		},
 		info_visible = {
 			guifg = { attribute = "fg", highlight = "DiagnosticInfo" },
@@ -209,11 +208,11 @@ bufferline.setup({
 		},
 		hint_selected = {
 			guifg = { attribute = "fg", highlight = "DiagnosticHint" },
-			gui = "none",
+			gui = "bold,italic",
 		},
 		hint_diagnostic_selected = {
 			guifg = { attribute = "fg", highlight = "DiagnosticHint" },
-			gui = "none",
+			gui = "bold,italic",
 		},
 		hint_visible = {
 			guifg = { attribute = "fg", highlight = "DiagnosticHint" },

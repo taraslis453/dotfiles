@@ -72,3 +72,7 @@ keymap("n", "<space>Q", ":qa<CR>", opts)
 keymap("n", "<space>w", ":w<CR>", opts)
 keymap("n", "<space>W", ":wa<CR>", opts)
 keymap("n", "<space>z", ":wq<CR>", opts)
+
+keymap("n", "<space>f", ":Format<CR>", opts)
+
+vim.cmd([[tnoremap <A-\> <C-\><C-n>]])

@@ -10,8 +10,6 @@ call plug#begin()
   Plug 'psliwka/vim-smoothie'
   Plug 'xolox/vim-notes'
   Plug 'xolox/vim-misc'
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'simeji/winresizer'
 call plug#end()
 let g:lite_dfm_left_offset = 1
 let mapleader = ','
@@ -65,6 +63,7 @@ map е t
 map Е T
 map ж ;
 map б ,
+map Ї }
 let g:qs_max_chars=20000
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:qs_accepted_chars = ['ф','и','с','в','у','а','п','р','ш','о','л','д','ь','т','щ','з','й','к','ы','е','г','м','ц','ч','я']

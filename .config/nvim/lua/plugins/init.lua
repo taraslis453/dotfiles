@@ -93,8 +93,9 @@ return packer.startup(function(use)
 	require("plugins.config.feline")
 	require("plugins.config.alpha")
 	require("plugins.config.toggleterm")
-	require("plugins.config.searchbox")
+	require("plugins.config.lightbulb")
 	use({
+		"kosayoda/nvim-lightbulb",
 		"akinsho/bufferline.nvim",
 		"feline-nvim/feline.nvim",
 		{
@@ -104,12 +105,6 @@ return packer.startup(function(use)
 		"goolord/alpha-nvim",
 		"kevinhwang91/nvim-bqf",
 		"akinsho/toggleterm.nvim",
-		{
-			"VonHeikemen/searchbox.nvim",
-			requires = {
-				{ "MunifTanjim/nui.nvim" },
-			},
-		},
 	})
 
 	-- Code reading
@@ -151,6 +146,7 @@ return packer.startup(function(use)
 		"tamago324/nlsp-settings.nvim", -- language server settings defined in json for
 		"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
 		"simrat39/symbols-outline.nvim",
+		"jose-elias-alvarez/nvim-lsp-ts-utils",
 
 		-- UI
 		"ray-x/lsp_signature.nvim",
@@ -159,14 +155,13 @@ return packer.startup(function(use)
 			"CosmicNvim/cosmic-ui",
 			requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 		},
-		-- TODO: use it on 0.7 nvim
-		-- {
-		-- 	"narutoxy/dim.lua",
-		-- 	requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-		-- 	config = function()
-		-- 		require("dim").setup()
-		-- 	end,
-		-- },
+		{
+			"narutoxy/dim.lua",
+			requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+			config = function()
+				require("dim").setup()
+			end,
+		},
 	})
 
 	-- Completion
@@ -200,6 +195,16 @@ return packer.startup(function(use)
 		"lewis6991/gitsigns.nvim",
 		"sindrets/diffview.nvim",
 	})
+
+	-- configure this
+	-- require("plugins.config.dap")
+	-- Debug
+	-- use({
+	-- 	"mfussenegger/nvim-dap",
+	-- 	"mfussenegger/nvim-dap-ui",
+	-- 	"leoluz/nvim-dap-go",
+	-- 	"theHamsta/nvim-dap-virtual-text",
+	-- })
 
 	-- Utils
 	use({
