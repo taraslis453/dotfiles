@@ -126,4 +126,8 @@ M.active[3] = {
 
 require("feline").setup({
 	components = M,
+	force_inactive = {
+		filetype = nil,
+		buftypes = nil,
+	},
 })

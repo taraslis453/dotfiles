@@ -33,6 +33,7 @@ local options = {
 	linebreak = true,
 	breakindent = true,
 	guicursor = "",
+	laststatus = 3,
 }
 
 vim.opt.shortmess:append("c")
