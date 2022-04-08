@@ -43,6 +43,7 @@ local kind_icons = {
 	Operator = "",
 	TypeParameter = "",
 }
+
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 cmp.setup({
 	snippet = {
@@ -65,7 +66,10 @@ cmp.setup({
 		-- Set `select` to `false` to only confirm explicitly selected items.
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
+			local copilot_keys = vim.fn["copilot#Accept"]()
+			if copilot_keys ~= "" and type(copilot_keys) == "string" then
+				vim.api.nvim_feedkeys(copilot_keys, "i", true)
+			elseif cmp.visible() then
 				cmp.select_next_item()
 			elseif luasnip.expandable() then
 				luasnip.expand()
@@ -123,7 +127,7 @@ cmp.setup({
 		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 	},
 	experimental = {
-		ghost_text = true,
+		-- ghost_text = true,
 		native_menu = false,
 	},
 })

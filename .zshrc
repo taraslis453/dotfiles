@@ -24,7 +24,6 @@ export GOPATH=$HOME/usr/local/go/bin/go
 
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-vi-mode )
 
-
 # ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 source $ZSH/oh-my-zsh.sh
@@ -50,7 +49,8 @@ alias n='nvim'
 alias v='vim'
 alias ni='cd && .config/nvim && n .'
 alias ls='exa'
-
+eval $(thefuck --alias)
+alias f='fuck --yeah'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

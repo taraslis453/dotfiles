@@ -167,7 +167,10 @@ return packer.startup(function(use)
 	-- Completion
 	require("plugins.config.cmp")
 	use({
-		"hrsh7th/nvim-cmp", -- The completion plugin
+		{
+			"hrsh7th/nvim-cmp", -- The completion plugin
+			commit = "dd6e4d96f9e376c87302fa5414556aa6269bf997",
+		},
 		"hrsh7th/cmp-buffer", -- buffer completions
 		"hrsh7th/cmp-path", -- path completions
 		"hrsh7th/cmp-cmdline", -- cmdline completions
@@ -177,6 +180,14 @@ return packer.startup(function(use)
 
 		"L3MON4D3/LuaSnip", --snippet engine
 		"rafamadriz/friendly-snippets", -- a bunch of snippets to use
+		{
+			"github/copilot.vim",
+			config = function()
+				vim.g.copilot_no_tab_map = true
+				vim.g.copilot_assume_mapped = true
+				vim.g.copilot_tab_fallback = ""
+			end,
+		},
 	})
 
 	-- Git
@@ -195,17 +206,8 @@ return packer.startup(function(use)
 		"lewis6991/gitsigns.nvim",
 		"sindrets/diffview.nvim",
 	})
-
-	-- configure this
-	-- require("plugins.config.dap")
-	-- Debug
-	-- use({
-	-- 	"mfussenegger/nvim-dap",
-	-- 	"mfussenegger/nvim-dap-ui",
-	-- 	"leoluz/nvim-dap-go",
-	-- 	"theHamsta/nvim-dap-virtual-text",
-	-- })
-
+	require("plugins.config.dap")
+	use({ "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui", "theHamsta/nvim-dap-virtual-text" })
 	-- Utils
 	use({
 		"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
