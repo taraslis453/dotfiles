@@ -71,7 +71,6 @@ local function lsp_keymaps(bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 end
-
 M.on_attach = function(client, bufnr)
 	if client.name == "tsserver" then
 		client.resolved_capabilities.document_formatting = false
@@ -108,6 +107,9 @@ M.on_attach = function(client, bufnr)
 		ts_utils.setup_client(client)
 	end
 	if client.name == "sumneko_lua" then
+		client.resolved_capabilities.document_formatting = false
+	end
+	if client.name == "stylelint_lsp" then
 		client.resolved_capabilities.document_formatting = false
 	end
 	if client.name == "gopls" then
