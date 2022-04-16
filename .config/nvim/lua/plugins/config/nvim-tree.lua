@@ -127,6 +127,16 @@ nvim_tree.setup({
 		folder_arrows = 1,
 		tree_width = 30,
 	},
+	renderer = {
+		indent_markers = {
+			enable = true,
+			icons = {
+				corner = "└ ",
+				edge = "│ ",
+				none = "  ",
+			},
+		},
+	},
 	actions = {
 		open_file = {
 			quit_on_open = false,

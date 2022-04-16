@@ -163,13 +163,12 @@ return packer.startup(function(use)
 			end,
 		},
 	})
-
 	-- Completion
 	require("plugins.config.cmp")
 	use({
 		{
 			"hrsh7th/nvim-cmp", -- The completion plugin
-			commit = "dd6e4d96f9e376c87302fa5414556aa6269bf997",
+			-- commit = "dd6e4d96f9e376c87302fa5414556aa6269bf997",
 		},
 		"hrsh7th/cmp-buffer", -- buffer completions
 		"hrsh7th/cmp-path", -- path completions
@@ -189,7 +188,7 @@ return packer.startup(function(use)
 			end,
 		},
 	})
-
+	--
 	-- Git
 	require("plugins.config.gitsigns")
 	require("plugins.config.diffview")
