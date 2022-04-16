@@ -4,4 +4,5 @@ vim.cmd([["
 
   hi NvimTreeFolderName guifg=#fff 
   hi NvimTreeOpenedFolderName guifg=#fff
+  hi NvimTreeIndentMarker guifg=#282c34
 "]])
