@@ -26,7 +26,7 @@ telescope.setup({
 				["<Up>"] = actions.move_selection_previous,
 
 				["<CR>"] = actions.select_default,
-				["<C-i>"] = actions.select_horizontal,
+				["<Tab>"] = actions.select_horizontal,
 				["<C-s>"] = actions.select_vertical,
 			},
 
@@ -49,7 +49,7 @@ telescope.setup({
 				["<PageDown>"] = actions.results_scrolling_down,
 
 				["<CR>"] = actions.select_default,
-				["<C-i>"] = actions.select_horizontal,
+				["<Tab>"] = actions.select_horizontal,
 				["<C-s>"] = actions.select_vertical,
 			},
 		},
