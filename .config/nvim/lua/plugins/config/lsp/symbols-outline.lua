@@ -1,5 +1,5 @@
 vim.g.symbols_outline = {
-	width = 70,
+	width = 20,
 }
 
-vim.api.nvim_set_keymap("n", "<leader>s", ":SymbolsOutline<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<space>s", ":SymbolsOutline<CR>", { noremap = true, silent = true })

@@ -81,12 +81,19 @@ telescope.setup({
 		},
 	},
 })
-require("telescope").load_extension("fzf")
+telescope.load_extension("fzf")
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<leader>g", "<:Telescope live_grep<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>f", ":Telescope find_files<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>p", ":Telescope projects theme=dropdown<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>r", ":Telescope oldfiles<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>v", ":Telescope buffers<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>s", ":SearchSession<CR>", opts)
 
 vim.api.nvim_set_keymap("n", "gr", ":Telescope lsp_references<cr>", opts)
+vim.api.nvim_set_keymap(
+	"n",
+	"ga",
+	":lua require'telescope.builtin'.lsp_code_actions(require('telescope.themes').get_dropdown({ winblend = 10 }))<cr>",
+	opts
+)

@@ -12,7 +12,7 @@ dap.configurations.go = {
 		name = "Debug",
 		request = "launch",
 		showLog = false,
-		program = "${workspaceFolder}/api/cmd/main.go",
+		program = "${workspaceFolder}/api-poc/cmd/main.go",
 		dlvToolPath = vim.fn.exepath("dlv"),
 	},
 }
