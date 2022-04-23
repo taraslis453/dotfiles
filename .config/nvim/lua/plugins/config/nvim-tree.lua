@@ -140,7 +140,7 @@ nvim_tree.setup({
 	actions = {
 		open_file = {
 			quit_on_open = false,
-			resize_window = false,
+			resize_window = true,
 			window_picker = {
 				enable = true,
 				chars = "HLJKFQDS",

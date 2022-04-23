@@ -115,6 +115,9 @@ M.on_attach = function(client, bufnr)
 	if client.name == "gopls" then
 		client.resolved_capabilities.document_formatting = false
 	end
+	if client.name == "eslint" then
+		vim.cmd("autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll")
+	end
 	-- format on save
 	if client.resolved_capabilities.document_formatting then
 		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()")

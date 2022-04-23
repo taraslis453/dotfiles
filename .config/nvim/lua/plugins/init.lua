@@ -44,6 +44,27 @@ packer.init({
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 
+	-- Utils
+	use({
+		"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
+		"moll/vim-bbye",
+		{
+			"luukvbaal/stabilize.nvim",
+			config = function()
+				require("stabilize").setup()
+			end,
+		},
+		"folke/which-key.nvim",
+		"lewis6991/impatient.nvim",
+		{
+			"rmagatti/session-lens",
+			requires = { "rmagatti/auto-session" },
+			config = function()
+				require("plugins.config.session")
+			end,
+		},
+	})
+
 	-- File explorer
 	require("plugins.config.nvim-tree")
 	require("plugins.config.telescope")
@@ -207,19 +228,6 @@ return packer.startup(function(use)
 	})
 	require("plugins.config.dap")
 	use({ "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui", "theHamsta/nvim-dap-virtual-text" })
-	-- Utils
-	use({
-		"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
-		"moll/vim-bbye",
-		{
-			"luukvbaal/stabilize.nvim",
-			config = function()
-				require("stabilize").setup()
-			end,
-		},
-		"folke/which-key.nvim",
-		"lewis6991/impatient.nvim",
-	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
