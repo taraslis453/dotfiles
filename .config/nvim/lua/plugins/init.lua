@@ -141,6 +141,7 @@ return packer.startup(function(use)
 	use({
 		"folke/tokyonight.nvim",
 		"navarasu/onedark.nvim",
+		"Mofiqul/vscode.nvim",
 		"Shatur/neovim-ayu",
 		"norcalli/nvim-colorizer.lua",
 	})
