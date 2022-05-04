@@ -45,7 +45,7 @@ alias c='clear'
 alias e='exit'
 alias n='nvim'
 alias v='vim'
-alias ni='cd && .config/nvim && n .'
+alias ni='cd && .config/nvim && n'
 alias ls='exa'
 eval $(thefuck --alias)
 alias f='fuck --yeah'

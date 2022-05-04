@@ -45,9 +45,7 @@ keymap("n", "<C-w>i", ":split<CR>", opts)
 
 -- insert blank line on enter
 keymap("n", "<CR>", "o<Esc>", opts)
--- TODO: make it work
--- https://stackoverflow.com/questions/16359878/how-to-map-shift-enter
--- keymap("n", "<S-CR>", "O<Esc>", opts)
+keymap("n", "<S-CR>", "O<Esc>", opts)
 
 -- move lines
 keymap("v", "J", ":m '>+1<CR>gv=gv", opts)

@@ -9,7 +9,7 @@ dap.adapters.go = {
 dap.configurations.go = {
 	{
 		type = "go",
-		name = "Debug",
+		name = "Debug server",
 		request = "launch",
 		showLog = false,
 		program = "${workspaceFolder}/api-poc/cmd/main.go",
