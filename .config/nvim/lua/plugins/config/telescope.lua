@@ -10,7 +10,7 @@ telescope.setup({
 
 		prompt_prefix = " ",
 		selection_caret = " ",
-		path_display = { "smart" },
+		-- path_display = { "smart" },
 
 		mappings = {
 			i = {
@@ -26,6 +26,7 @@ telescope.setup({
 				["<Up>"] = actions.move_selection_previous,
 
 				["<CR>"] = actions.select_default,
+				-- <C-i>
 				["<Tab>"] = actions.select_horizontal,
 				["<C-s>"] = actions.select_vertical,
 			},
@@ -91,9 +92,3 @@ vim.api.nvim_set_keymap("n", "<leader>v", ":Telescope buffers<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>s", ":SearchSession<CR>", opts)
 
 vim.api.nvim_set_keymap("n", "gr", ":Telescope lsp_references<cr>", opts)
-vim.api.nvim_set_keymap(
-	"n",
-	"ga",
-	":lua require'telescope.builtin'.lsp_code_actions(require('telescope.themes').get_dropdown({ winblend = 10 }))<cr>",
-	opts
-)

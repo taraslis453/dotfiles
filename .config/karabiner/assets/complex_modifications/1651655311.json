@@ -1,0 +1,42 @@
+{
+  "title": "Map Left Shift plus Left Option with j/k/l/; to Page Arrows (QWERTY alt)",
+  "rules": [
+    {
+      "description": "Map Left Shift plus Left Option with j/k/l/; to Page Arrows (QWERTY alt)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": ["left_control", "left_shift"],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": ["left_option", "left_shift"]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": ["left_option", "left_shift"],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow",
+              "modifiers": ["fn"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

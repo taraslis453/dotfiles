@@ -109,16 +109,19 @@ return packer.startup(function(use)
 	})
 
 	-- UI
+	require("plugins.config.lsp.dressing")
 	require("plugins.config.bufferline")
 	require("plugins.config.project")
-	require("plugins.config.feline")
+	require("plugins.config.lualine")
+	-- require("plugins.config.feline")
 	require("plugins.config.alpha")
 	require("plugins.config.toggleterm")
 	require("plugins.config.lightbulb")
 	use({
+		"stevearc/dressing.nvim",
 		"kosayoda/nvim-lightbulb",
-		"akinsho/bufferline.nvim",
-		"feline-nvim/feline.nvim",
+		-- "feline-nvim/feline.nvim",
+		"nvim-lualine/lualine.nvim",
 		{
 			"ahmedkhalf/project.nvim",
 			wants = { "telescope" },
@@ -127,12 +130,18 @@ return packer.startup(function(use)
 		"kevinhwang91/nvim-bqf",
 		"akinsho/toggleterm.nvim",
 	})
+	use({
+		"akinsho/bufferline.nvim",
+		tag = "v1.*",
+	})
 
 	-- Code reading
 	require("plugins.config.colorscheme")
 	require("plugins.config.colorizer")
 	use({
+		"folke/tokyonight.nvim",
 		"navarasu/onedark.nvim",
+		"Shatur/neovim-ayu",
 		"norcalli/nvim-colorizer.lua",
 	})
 
@@ -172,10 +181,7 @@ return packer.startup(function(use)
 		-- UI
 		"ray-x/lsp_signature.nvim",
 		"folke/trouble.nvim",
-		{
-			"CosmicNvim/cosmic-ui",
-			requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-		},
+		"MunifTanjim/nui.nvim",
 		{
 			"narutoxy/dim.lua",
 			requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
@@ -213,6 +219,7 @@ return packer.startup(function(use)
 	-- Git
 	require("plugins.config.gitsigns")
 	require("plugins.config.diffview")
+	require("plugins.config.git-conflict")
 	require("plugins.config.octo")
 	use({
 		{
@@ -222,6 +229,9 @@ return packer.startup(function(use)
 				"nvim-telescope/telescope.nvim",
 				"kyazdani42/nvim-web-devicons",
 			},
+		},
+		{
+			"akinsho/git-conflict.nvim",
 		},
 		"lewis6991/gitsigns.nvim",
 		"sindrets/diffview.nvim",
