@@ -5,4 +5,6 @@
 -- require("onedark").load()
 
 -- vim.g.tokyonight_style = "day"
-vim.cmd([[colorscheme ayu-light]])
+vim.g.vscode_style = "light"
+vim.g.vscode_italic_comment = 1
+vim.cmd([[colorscheme vscode]])
