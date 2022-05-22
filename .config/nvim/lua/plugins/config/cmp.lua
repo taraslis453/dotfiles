@@ -104,7 +104,6 @@ cmp.setup({
 			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
-				cmp_tabnine = "[TN]",
 				luasnip = "[Snippet]",
 				buffer = "[Buffer]",
 				path = "[Path]",
@@ -117,7 +116,6 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
-		{ name = "cmp_tabnine" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
@@ -133,6 +131,3 @@ cmp.setup({
 		native_menu = false,
 	},
 })
-
-local tabnine = require("cmp_tabnine.config")
-tabnine:setup({})

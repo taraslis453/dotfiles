@@ -7,4 +7,4 @@
 -- vim.g.tokyonight_style = "day"
 vim.g.vscode_style = "light"
 vim.g.vscode_italic_comment = 1
-vim.cmd([[colorscheme vscode]])
+vim.cmd([[colorscheme github_light]])
