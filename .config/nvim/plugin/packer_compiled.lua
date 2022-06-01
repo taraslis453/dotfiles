@@ -84,6 +84,12 @@ _G.packer_plugins = {
     path = "/Users/taras/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["NoCLC.nvim"] = {
+    config = { "\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25plugins.config.noclc\frequire\0" },
+    loaded = true,
+    path = "/Users/taras/.local/share/nvim/site/pack/packer/start/NoCLC.nvim",
+    url = "https://github.com/Pocco81/NoCLC.nvim"
+  },
   ["alpha-nvim"] = {
     loaded = true,
     path = "/Users/taras/.local/share/nvim/site/pack/packer/start/alpha-nvim",
@@ -433,6 +439,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: NoCLC.nvim
+time([[Config for NoCLC.nvim]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25plugins.config.noclc\frequire\0", "config", "NoCLC.nvim")
+time([[Config for NoCLC.nvim]], false)
 -- Config for: dim.lua
 time([[Config for dim.lua]], true)
 try_loadstring("\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\bdim\frequire\0", "config", "dim.lua")
@@ -441,10 +451,6 @@ time([[Config for dim.lua]], false)
 time([[Config for stabilize.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14stabilize\frequire\0", "config", "stabilize.nvim")
 time([[Config for stabilize.nvim]], false)
--- Config for: copilot.vim
-time([[Config for copilot.vim]], true)
-try_loadstring("\27LJ\2\n€\1\0\0\2\0\6\0\r6\0\0\0009\0\1\0+\1\2\0=\1\2\0006\0\0\0009\0\1\0+\1\2\0=\1\3\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0K\0\1\0\5\25copilot_tab_fallback\26copilot_assume_mapped\23copilot_no_tab_map\6g\bvim\0", "config", "copilot.vim")
-time([[Config for copilot.vim]], false)
 -- Config for: nvim-gps
 time([[Config for nvim-gps]], true)
 try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rnvim-gps\frequire\0", "config", "nvim-gps")
@@ -453,6 +459,10 @@ time([[Config for nvim-gps]], false)
 time([[Config for session-lens]], true)
 try_loadstring("\27LJ\2\n6\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\27plugins.config.session\frequire\0", "config", "session-lens")
 time([[Config for session-lens]], false)
+-- Config for: copilot.vim
+time([[Config for copilot.vim]], true)
+try_loadstring("\27LJ\2\n€\1\0\0\2\0\6\0\r6\0\0\0009\0\1\0+\1\2\0=\1\2\0006\0\0\0009\0\1\0+\1\2\0=\1\3\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0K\0\1\0\5\25copilot_tab_fallback\26copilot_assume_mapped\23copilot_no_tab_map\6g\bvim\0", "config", "copilot.vim")
+time([[Config for copilot.vim]], false)
 if should_profile then save_profiles() end
 
 end)
