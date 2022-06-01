@@ -63,6 +63,7 @@ return packer.startup(function(use)
 				require("plugins.config.session")
 			end,
 		},
+		"Pocco81/NoCLC.nvim",
 	})
 
 	-- File explorer
@@ -149,6 +150,7 @@ return packer.startup(function(use)
 
 	-- Treesitter
 	require("plugins.config.treesitter")
+	require("hlargs").setup()
 	use({
 		{
 			"nvim-treesitter/nvim-treesitter",
@@ -161,6 +163,7 @@ return packer.startup(function(use)
 		"RRethy/nvim-treesitter-textsubjects",
 		"nvim-treesitter/nvim-treesitter-refactor",
 		"p00f/nvim-ts-rainbow",
+		"nvim-treesitter/nvim-treesitter-context",
 		-- show context in statusline
 		{
 			"SmiteshP/nvim-gps",
@@ -168,6 +171,7 @@ return packer.startup(function(use)
 				require("nvim-gps").setup()
 			end,
 		},
+		"m-demare/hlargs.nvim",
 	})
 
 	-- LSP
@@ -184,6 +188,7 @@ return packer.startup(function(use)
 		"ray-x/lsp_signature.nvim",
 		"folke/trouble.nvim",
 		"MunifTanjim/nui.nvim",
+		"lukas-reineke/indent-blankline.nvim",
 		{
 			"narutoxy/dim.lua",
 			requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
@@ -192,6 +197,7 @@ return packer.startup(function(use)
 			end,
 		},
 	})
+
 	-- Completion
 	require("plugins.config.cmp")
 	use({
@@ -216,7 +222,7 @@ return packer.startup(function(use)
 			end,
 		},
 	})
-	--
+
 	-- Git
 	require("plugins.config.gitsigns")
 	require("plugins.config.diffview")
@@ -237,8 +243,18 @@ return packer.startup(function(use)
 		"lewis6991/gitsigns.nvim",
 		"sindrets/diffview.nvim",
 	})
+
+	-- Debugging
 	require("plugins.config.dap")
 	use({ "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui", "theHamsta/nvim-dap-virtual-text" })
+
+	-- Database
+	-- TODO: migrate to this
+	-- use({
+	-- 	"kristijanhusak/vim-dadbod-ui",
+	-- 	"tpope/vim-dadbod",
+	-- 	"kristijanhusak/vim-dadbod-completion",
+	-- })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

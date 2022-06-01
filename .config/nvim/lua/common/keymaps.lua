@@ -74,3 +74,6 @@ keymap("n", "<space>z", ":wq<CR>", opts)
 keymap("n", "<space>f", ":Format<CR>", opts)
 
 vim.cmd([[tnoremap <A-\> <C-\><C-n>]])
+
+-- Disable accidentally pressing ctrl-z and suspending
+keymap("n", "<C-z>", "<Nop>", opts)
