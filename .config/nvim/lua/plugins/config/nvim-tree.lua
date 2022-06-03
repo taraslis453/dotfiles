@@ -1,31 +1,9 @@
-vim.g.nvim_tree_git_hl = 1
-
-vim.g.nvim_tree_icons = {
-	default = "",
-	symlink = "",
-	git = {
-		unstaged = "",
-		staged = "",
-		unmerged = "",
-		renamed = "",
-		deleted = "",
-		untracked = "",
-		ignored = "",
-	},
-	folder = {
-		default = "",
-		open = "",
-		empty = "",
-		empty_open = "",
-		symlink = "",
-	},
-}
-
 local status_ok, nvim_tree = pcall(require, "nvim-tree")
 if not status_ok then
 	return
 end
 nvim_tree.setup({
+	respect_buf_cwd = true,
 	disable_netrw = true,
 	hijack_netrw = false,
 	open_on_setup = false,
@@ -113,6 +91,30 @@ nvim_tree.setup({
 		require_confirm = true,
 	},
 	renderer = {
+		icons = {
+			webdev_colors = true,
+			glyphs = {
+				default = "",
+				symlink = "",
+				git = {
+					unstaged = "",
+					staged = "",
+					unmerged = "",
+					renamed = "",
+					deleted = "",
+					untracked = "",
+					ignored = "",
+				},
+				folder = {
+					default = "",
+					open = "",
+					empty = "",
+					empty_open = "",
+					symlink = "",
+				},
+			},
+		},
+		highlight_git = true,
 		indent_markers = {
 			enable = true,
 			icons = {
