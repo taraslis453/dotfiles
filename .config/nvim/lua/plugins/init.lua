@@ -44,9 +44,11 @@ packer.init({
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 
+	require("plugins.config.rooter")
 	-- Utils
 	use({
 		"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
+		"airblade/vim-rooter",
 		"moll/vim-bbye",
 		{
 			"luukvbaal/stabilize.nvim",
@@ -246,7 +248,7 @@ return packer.startup(function(use)
 
 	-- Debugging
 	require("plugins.config.dap")
-	use({ "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui", "theHamsta/nvim-dap-virtual-text" })
+	use({ "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui", "leoluz/nvim-dap-go", "theHamsta/nvim-dap-virtual-text" })
 
 	-- Database
 	-- TODO: migrate to this
