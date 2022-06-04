@@ -42,17 +42,6 @@ map("n", "<space>ds", ':lua local widgets=require"dap.ui.widgets";widgets.center
 map("n", "<space>dac", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
 map("n", "<space>du", ':lua require"dapui".toggle()<CR>')
 
-vim.highlight.create("DapBreakpoint", { ctermbg = 0, guifg = "#993939" }, false)
-vim.highlight.create("DapBreakpointRejected", { ctermbg = 0, guifg = "#61afef" }, false)
-vim.highlight.create("DapStopped", { ctermbg = 0, guifg = "#98c379" }, false)
-
-vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "", linehl = "", numhl = "DapBreakpoint" })
-vim.fn.sign_define(
-	"DapBreakpointRejected",
-	{ text = "🟦", texthl = "", linehl = "", numhl = "DapBreakpointRejected" }
-)
-vim.fn.sign_define("DapStopped", { text = "🟩", texthl = "", linehl = "", numhl = "DapStopped" })
-
 require("dap-go").setup()
 require("nvim-dap-virtual-text").setup()
 
@@ -108,3 +97,14 @@ end
 dap.listeners.before.before_exited["dapui_config"] = function()
 	dapui.close()
 end
+
+vim.highlight.create("DapBreakpoint", { ctermbg = 0, guifg = "#993939" }, false)
+vim.highlight.create("DapBreakpointRejected", { ctermbg = 0, guifg = "#61afef" }, false)
+vim.highlight.create("DapStopped", { ctermbg = 0, guifg = "#98c379" }, false)
+
+vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "", linehl = "", numhl = "DapBreakpoint" })
+vim.fn.sign_define(
+	"DapBreakpointRejected",
+	{ text = "🟦", texthl = "", linehl = "", numhl = "DapBreakpointRejected" }
+)
+vim.fn.sign_define("DapStopped", { text = "🟩", texthl = "", linehl = "", numhl = "DapStopped" })

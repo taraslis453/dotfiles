@@ -52,36 +52,41 @@ bufferline.setup({
 			groups.builtin.ungrouped,
 			items = {
 				{
-					name = "controller",
-					matcher = function(buf)
-						return buf.path:match("controller")
-					end,
-				},
-				{
-					name = "repository",
-					matcher = function(buf)
-						return buf.path:match("repository")
-					end,
-				},
-				{
-					name = "service",
-					matcher = function(buf)
-						return buf.path:match("service")
-					end,
-				},
-				{
-					name = "domain",
+					name = "d",
 					matcher = function(buf)
 						return buf.path:match("domain")
 					end,
+					priority = 1,
 				},
 				{
-					name = "api",
+					name = "c",
+					matcher = function(buf)
+						return buf.path:match("controller")
+					end,
+					priority = 2,
+				},
+				{
+					name = "r",
+					matcher = function(buf)
+						return buf.path:match("repository")
+					end,
+					priority = 3,
+				},
+				{
+					name = "a",
 					matcher = function(buf)
 						if not buf.filename:match("api") then
 							return buf.path:match("api")
 						end
 					end,
+					priority = 4,
+				},
+				{
+					name = "s",
+					matcher = function(buf)
+						return buf.path:match("service")
+					end,
+					priority = 5,
 				},
 				{
 					name = "shared",
