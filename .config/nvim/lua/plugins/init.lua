@@ -45,6 +45,7 @@ return packer.startup(function(use)
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 
 	require("plugins.config.rooter")
+	require("plugins.config.noclc")
 	-- Utils
 	use({
 		"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
@@ -106,7 +107,10 @@ return packer.startup(function(use)
 	require("plugins.config.quickscope")
 	require("plugins.config.wordmotion")
 	use({
-		"phaazon/hop.nvim",
+		{
+			"phaazon/hop.nvim",
+			commit = "b93ed4cea9c7df625d04e41cb15370b5c43cb578",
+		},
 		"unblevable/quick-scope",
 		"chaoren/vim-wordmotion",
 	})
@@ -238,6 +242,7 @@ return packer.startup(function(use)
 				"nvim-telescope/telescope.nvim",
 				"kyazdani42/nvim-web-devicons",
 			},
+			commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2",
 		},
 		{
 			"akinsho/git-conflict.nvim",
@@ -246,9 +251,20 @@ return packer.startup(function(use)
 		"sindrets/diffview.nvim",
 	})
 
-	-- Debugging
+	-- Debugging / testing
 	require("plugins.config.dap")
+	require("plugins.config.neotest")
 	use({ "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui", "leoluz/nvim-dap-go", "theHamsta/nvim-dap-virtual-text" })
+	use({
+		"nvim-neotest/neotest",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"antoinemadec/FixCursorHold.nvim",
+
+			"nvim-neotest/neotest-go",
+		},
+	})
 
 	-- Database
 	-- TODO: migrate to this

@@ -77,3 +77,11 @@ vim.cmd([[tnoremap <A-\> <C-\><C-n>]])
 
 -- Disable accidentally pressing ctrl-z and suspending
 keymap("n", "<C-z>", "<Nop>", opts)
+-- Yank without cursor movement
+keymap("v", "y", "y`]", opts)
+
+-- keymap("n", "H", "^", opts)
+-- keymap("n", "L", "$", opts)
+--
+-- keymap("v", "H", "^", opts)
+-- keymap("v", "L", "$", opts)
