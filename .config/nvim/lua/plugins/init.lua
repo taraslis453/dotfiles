@@ -120,14 +120,12 @@ return packer.startup(function(use)
 	require("plugins.config.bufferline")
 	require("plugins.config.project")
 	require("plugins.config.lualine")
-	-- require("plugins.config.feline")
 	require("plugins.config.alpha")
 	require("plugins.config.toggleterm")
 	require("plugins.config.lightbulb")
 	use({
 		"stevearc/dressing.nvim",
 		"kosayoda/nvim-lightbulb",
-		-- "feline-nvim/feline.nvim",
 		"nvim-lualine/lualine.nvim",
 		{
 			"ahmedkhalf/project.nvim",
@@ -136,10 +134,13 @@ return packer.startup(function(use)
 		"goolord/alpha-nvim",
 		"kevinhwang91/nvim-bqf",
 		"akinsho/toggleterm.nvim",
-	})
-	use({
-		"akinsho/bufferline.nvim",
-		tag = "v1.*",
+		{
+			"kevinhwang91/nvim-ufo",
+			requires = "kevinhwang91/promise-async",
+		},
+		{
+			"akinsho/bufferline.nvim",
+		},
 	})
 
 	-- Code reading
@@ -147,10 +148,6 @@ return packer.startup(function(use)
 	require("plugins.config.colorizer")
 	use({
 		"projekt0n/github-nvim-theme",
-		"folke/tokyonight.nvim",
-		"navarasu/onedark.nvim",
-		"Mofiqul/vscode.nvim",
-		"Shatur/neovim-ayu",
 		"norcalli/nvim-colorizer.lua",
 	})
 
@@ -170,13 +167,7 @@ return packer.startup(function(use)
 		"nvim-treesitter/nvim-treesitter-refactor",
 		"p00f/nvim-ts-rainbow",
 		"nvim-treesitter/nvim-treesitter-context",
-		-- show context in statusline
-		{
-			"SmiteshP/nvim-gps",
-			config = function()
-				require("nvim-gps").setup()
-			end,
-		},
+
 		"m-demare/hlargs.nvim",
 	})
 
@@ -191,7 +182,6 @@ return packer.startup(function(use)
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
 
 		-- UI
-		"ray-x/lsp_signature.nvim",
 		"folke/trouble.nvim",
 		"MunifTanjim/nui.nvim",
 		"lukas-reineke/indent-blankline.nvim",
@@ -202,6 +192,12 @@ return packer.startup(function(use)
 				require("dim").setup()
 			end,
 		},
+
+		-- show context in statusline
+		{
+			"SmiteshP/nvim-navic",
+			requires = "neovim/nvim-lspconfig",
+		},
 	})
 
 	-- Completion
@@ -209,7 +205,6 @@ return packer.startup(function(use)
 	use({
 		{
 			"hrsh7th/nvim-cmp", -- The completion plugin
-			-- commit = "dd6e4d96f9e376c87302fa5414556aa6269bf997",
 		},
 		"hrsh7th/cmp-buffer", -- buffer completions
 		"hrsh7th/cmp-path", -- path completions

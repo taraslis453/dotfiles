@@ -85,6 +85,7 @@ telescope.setup({
 telescope.load_extension("fzf")
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<leader>g", ":Telescope live_grep<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>t", ":Telescope git_status<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>f", ":Telescope find_files<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>p", ":Telescope projects theme=dropdown<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>r", ":Telescope oldfiles<cr>", opts)

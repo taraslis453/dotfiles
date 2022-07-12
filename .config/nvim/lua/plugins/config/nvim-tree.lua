@@ -93,6 +93,7 @@ nvim_tree.setup({
 	renderer = {
 		icons = {
 			webdev_colors = true,
+			padding = " ",
 			glyphs = {
 				default = "",
 				symlink = "",

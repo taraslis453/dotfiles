@@ -5,6 +5,5 @@ end
 require("plugins.config.lsp.lsp-installer")
 require("plugins.config.lsp.handlers").setup()
 require("plugins.config.lsp.null-ls")
-require("plugins.config.lsp.lsp-signature")
 require("plugins.config.lsp.symbols-outline")
 require("plugins.config.lsp.trouble")

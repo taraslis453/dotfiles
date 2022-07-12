@@ -99,3 +99,9 @@ configs.setup({
 		},
 	},
 })
+
+require("ufo").setup({
+	provider_selector = function(bufnr, filetype)
+		return { "treesitter", "indent" }
+	end,
+})
