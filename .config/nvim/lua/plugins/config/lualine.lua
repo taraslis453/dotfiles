@@ -70,7 +70,7 @@ local spaces = function()
 	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
 
 lualine.setup({
 	options = {
@@ -92,7 +92,7 @@ lualine.setup({
 
 		lualine_b = { diagnostics },
 		lualine_c = {
-			{ gps.get_location, cond = gps.is_available },
+			{ navic.get_location, cond = navic.is_available },
 		},
 		lualine_x = { diff, spaces, "encoding", filetype },
 	},

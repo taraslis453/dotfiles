@@ -44,7 +44,7 @@ end
 
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight then
+	if client.server_capabilities.documentFormattingProvider then
 		vim.api.nvim_exec(
 			[[
       augroup lsp_document_highlight
@@ -73,11 +73,14 @@ local function lsp_keymaps(bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "v", "ga", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "R", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({async = true})' ]])
 end
+
+local navic = require("nvim-navic")
+
 M.on_attach = function(client, bufnr)
 	if client.name == "tsserver" then
-		client.resolved_capabilities.document_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
 
 		local ts_utils = require("nvim-lsp-ts-utils")
 
@@ -111,21 +114,35 @@ M.on_attach = function(client, bufnr)
 		ts_utils.setup_client(client)
 	end
 	if client.name == "sumneko_lua" then
-		client.resolved_capabilities.document_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
 	end
 	if client.name == "stylelint_lsp" then
-		client.resolved_capabilities.document_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
 	end
 	if client.name == "gopls" then
-		client.resolved_capabilities.document_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
 	end
 	if client.name == "eslint" then
 		vim.cmd("autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll")
 	end
+
 	-- format on save
-	if client.resolved_capabilities.document_formatting then
-		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()")
+	if client.supports_method("textDocument/formatting") then
+		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
 	end
+	if client.supports_method("textDocument/signatureHelp") then
+		vim.api.nvim_create_autocmd({ "CursorHoldI" }, {
+			pattern = "<buffer>",
+			group = vim.api.nvim_create_augroup("LspSignature", {}),
+			callback = function()
+				vim.lsp.buf.signature_help()
+			end,
+		})
+	end
+	if client.supports_method("textDocument/documentSymbol") then
+		navic.attach(client, bufnr)
+	end
+
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
 end

@@ -56,25 +56,28 @@ require("dapui").setup({
 		repl = "r",
 		toggle = "t",
 	},
-	sidebar = {
-		-- You can change the order of elements in the sidebar
-		elements = {
-			-- Provide as ID strings or tables with "id" and "size" keys
-			{
-				id = "scopes",
-				size = 0.25, -- Can be float or integer > 1
+	layouts = {
+		{
+			-- You can change the order of elements in the sidebar
+			elements = {
+				-- Provide as ID strings or tables with "id" and "size" keys
+				{
+					id = "scopes",
+					size = 0.25, -- Can be float or integer > 1
+				},
+				{ id = "breakpoints", size = 0.25 },
+				{ id = "stacks", size = 0.25 },
+				{ id = "watches", size = 00.25 },
 			},
-			{ id = "breakpoints", size = 0.25 },
-			{ id = "stacks", size = 0.25 },
-			{ id = "watches", size = 00.25 },
+			size = 40,
+			position = "left", -- Can be "left", "right", "top", "bottom"
 		},
-		size = 40,
-		position = "left", -- Can be "left", "right", "top", "bottom"
-	},
-	tray = {
-		elements = { "repl" },
-		size = 10,
-		position = "bottom", -- Can be "left", "right", "top", "bottom"
+		{
+
+			elements = { "repl" },
+			size = 10,
+			position = "bottom", -- Can be "left", "right", "top", "bottom"
+		},
 	},
 	floating = {
 		max_height = nil, -- These can be integers or a float between 0 and 1.
@@ -98,9 +101,9 @@ dap.listeners.before.before_exited["dapui_config"] = function()
 	dapui.close()
 end
 
-vim.highlight.create("DapBreakpoint", { ctermbg = 0, guifg = "#993939" }, false)
-vim.highlight.create("DapBreakpointRejected", { ctermbg = 0, guifg = "#61afef" }, false)
-vim.highlight.create("DapStopped", { ctermbg = 0, guifg = "#98c379" }, false)
+vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939" })
+vim.api.nvim_set_hl(0, "DapBreakpointRejected", { ctermbg = 0, fg = "#61afef" })
+vim.api.nvim_set_hl(0, "DapStopped", { ctermbg = 0, fg = "#98c379" })
 
 vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "", linehl = "", numhl = "DapBreakpoint" })
 vim.fn.sign_define(
