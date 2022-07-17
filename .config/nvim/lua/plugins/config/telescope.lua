@@ -7,7 +7,6 @@ local actions = require("telescope.actions")
 
 telescope.setup({
 	defaults = {
-
 		prompt_prefix = " ",
 		selection_caret = " ",
 		-- path_display = { "smart" },
@@ -79,6 +78,7 @@ telescope.setup({
 		},
 		lsp_references = {
 			theme = "dropdown",
+			path_display = { "smart" },
 		},
 	},
 })
@@ -91,5 +91,4 @@ vim.api.nvim_set_keymap("n", "<leader>p", ":Telescope projects theme=dropdown<cr
 vim.api.nvim_set_keymap("n", "<leader>r", ":Telescope oldfiles<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>v", ":Telescope buffers<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>s", ":SearchSession<CR>", opts)
-
 vim.api.nvim_set_keymap("n", "gr", ":Telescope lsp_references<cr>", opts)

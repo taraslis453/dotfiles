@@ -20,10 +20,10 @@ project.setup({
 	--- order matters: if one is not detected, the other is used as fallback. You
 	--- can also delete or rearangne the detection methods.
 	-- detection_methods = { "lsp", "pattern" }, -- NOTE: lsp detection will get annoying with multiple langs in one project
-	detection_methods = { "pattern" },
+	detection_methods = { "lsp", "pattern" },
 
 	---@usage patterns used to detect root dir, when **"pattern"** is in detection_methods
-	patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+	patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "makefile", "package.json", "go.mod" },
 
 	---@ Show hidden files in telescope when searching for files in a project
 	show_hidden = false,
@@ -37,7 +37,7 @@ project.setup({
 
 	---@type string
 	---@usage path to store the project history for use in telescope
-  datapath = vim.fn.stdpath("data"),
+	datapath = vim.fn.stdpath("data"),
 })
 
 local tele_status_ok, telescope = pcall(require, "telescope")
@@ -45,4 +45,4 @@ if not tele_status_ok then
 	return
 end
 
-telescope.load_extension('projects')
+telescope.load_extension("projects")

@@ -79,9 +79,3 @@ vim.cmd([[tnoremap <A-\> <C-\><C-n>]])
 keymap("n", "<C-z>", "<Nop>", opts)
 -- Yank without cursor movement
 keymap("v", "y", "y`]", opts)
-
--- keymap("n", "H", "^", opts)
--- keymap("n", "L", "$", opts)
---
--- keymap("v", "H", "^", opts)
--- keymap("v", "L", "$", opts)
