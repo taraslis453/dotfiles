@@ -44,12 +44,10 @@ packer.init({
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 
-	require("plugins.config.rooter")
 	require("plugins.config.noclc")
 	-- Utils
 	use({
 		"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
-		"airblade/vim-rooter",
 		"moll/vim-bbye",
 		{
 			"luukvbaal/stabilize.nvim",
@@ -80,7 +78,6 @@ return packer.startup(function(use)
 				"kyazdani42/nvim-web-devicons", -- optional, for file icon
 			},
 		},
-
 		{
 			"nvim-telescope/telescope.nvim",
 			requires = {
@@ -99,7 +96,14 @@ return packer.startup(function(use)
 		"windwp/nvim-autopairs",
 		"numToStr/Comment.nvim",
 		"tpope/vim-repeat",
-		"tpope/vim-surround",
+		{
+			"kylechui/nvim-surround",
+			config = function()
+				require("nvim-surround").setup({
+					-- Configuration here, or leave empty to use defaults
+				})
+			end,
+		},
 	})
 
 	-- Motion
@@ -134,10 +138,6 @@ return packer.startup(function(use)
 		"goolord/alpha-nvim",
 		"kevinhwang91/nvim-bqf",
 		"akinsho/toggleterm.nvim",
-		{
-			"kevinhwang91/nvim-ufo",
-			requires = "kevinhwang91/promise-async",
-		},
 		{
 			"akinsho/bufferline.nvim",
 		},

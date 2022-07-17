@@ -34,6 +34,9 @@ local options = {
 	breakindent = true,
 	guicursor = "",
 	laststatus = 3,
+	foldlevel = 100,
+	foldlevelstart = -1,
+	foldenable = true,
 }
 
 vim.opt.shortmess:append("c")
