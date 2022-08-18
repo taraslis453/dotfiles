@@ -5,7 +5,6 @@ end
 
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
 local formatting = null_ls.builtins.formatting
--- local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
 	sources = {
 		formatting.prettierd,
@@ -15,15 +14,17 @@ null_ls.setup({
 		formatting.stylelint.with({
 			filetypes = { "typescript", "typescriptreact", "javascriptreact" },
 		}),
-		-- TODO: find a way to fix error: stylelint: Error: No configuration provided for
-		-- diagnostics.stylelint.with({
-		-- 	filetypes = { "typescript", "typescriptreact", "javascriptreact" },
-		-- }),
 	},
 	-- format on save
-	on_attach = function(client)
+	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
-			vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = "bufcheck",
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.buf.format()
+				end,
+			})
 		end
 	end,
 })
