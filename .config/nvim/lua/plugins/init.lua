@@ -44,7 +44,6 @@ packer.init({
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 
-	require("plugins.config.noclc")
 	-- Utils
 	use({
 		"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
@@ -64,7 +63,6 @@ return packer.startup(function(use)
 				require("plugins.config.session")
 			end,
 		},
-		"Pocco81/NoCLC.nvim",
 	})
 
 	-- File explorer
@@ -143,7 +141,10 @@ return packer.startup(function(use)
 			"akinsho/toggleterm.nvim",
 			tag = "v2.1.0",
 		},
-		"akinsho/bufferline.nvim",
+		{
+			"akinsho/bufferline.nvim",
+			tag = "v2.4.0",
+		},
 		{
 			"rmagatti/goto-preview",
 			config = function()
