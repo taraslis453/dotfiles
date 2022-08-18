@@ -44,30 +44,43 @@ local buffer_dict = {
 			command = "NvimTreeRefresh",
 		},
 	},
+	FileType = {
+		{
+			group = BufCheck,
+			pattern = { "gitcommit", "gitrebase" },
+			command = "startinsert | 1",
+		},
+	},
 }
---
--- local Filetype = vim.api.nvim_create_augroup("filetype", { clear = true })
 
--- local filetype_dict = {
--- FileType = {
--- {
--- 	group = Filetype,
--- 	pattern = { "sql", "mysql", "plsql" },
--- 	desc = "Use dadbod-completion source in nvim-cmp.",
--- 	callback = function()
--- 		local cmp_status_ok, cmp = pcall(require, "cmp")
--- 		if not cmp_status_ok then
--- 			return
--- 		end
--- 		cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
--- 		vim.g.vim_dadbod_completion_mark = "[db]"
--- 	end,
--- },
--- 	},
--- }
+--
+local Filetype = vim.api.nvim_create_augroup("filetype", { clear = true })
+
+local filetype_dict = {
+	FileType = {
+		-- {
+		-- 	group = Filetype,
+		-- 	pattern = { "sql", "mysql", "plsql" },
+		-- 	desc = "Use dadbod-completion source in nvim-cmp.",
+		-- 	callback = function()
+		-- 		local cmp_status_ok, cmp = pcall(require, "cmp")
+		-- 		if not cmp_status_ok then
+		-- 			return
+		-- 		end
+		-- 		cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+		-- 		vim.g.vim_dadbod_completion_mark = "[db]"
+		-- 	end,
+		-- },
+		{
+			group = Filetype,
+			pattern = { "gitcommit", "gitrebase" },
+			command = "startinsert | 1",
+		},
+	},
+}
 
 create_autocmds(buffer_dict)
--- create_autocmds(filetype_dict)
+create_autocmds(filetype_dict)
 
 -------------------------------------------------------------------------------
 ------ PLUGINS

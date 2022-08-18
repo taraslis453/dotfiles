@@ -74,6 +74,8 @@ return packer.startup(function(use)
 	use({
 		{
 			"kyazdani42/nvim-tree.lua",
+			-- TODO: remove when fix for padding of last folder
+			commit = "0f96e32326a842798b6b8e638a91464521e4ef71",
 			requires = {
 				"kyazdani42/nvim-web-devicons", -- optional, for file icon
 			},
@@ -137,9 +139,18 @@ return packer.startup(function(use)
 		},
 		"goolord/alpha-nvim",
 		"kevinhwang91/nvim-bqf",
-		"akinsho/toggleterm.nvim",
 		{
-			"akinsho/bufferline.nvim",
+			"akinsho/toggleterm.nvim",
+			tag = "v2.1.0",
+		},
+		"akinsho/bufferline.nvim",
+		{
+			"rmagatti/goto-preview",
+			config = function()
+				require("goto-preview").setup({
+					default_mappings = true,
+				})
+			end,
 		},
 	})
 
@@ -227,7 +238,7 @@ return packer.startup(function(use)
 	-- Git
 	require("plugins.config.gitsigns")
 	require("plugins.config.diffview")
-	require("plugins.config.git-conflict")
+	-- require("plugins.config.git-conflict")
 	require("plugins.config.octo")
 	use({
 		{
@@ -239,9 +250,9 @@ return packer.startup(function(use)
 			},
 			commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2",
 		},
-		{
-			"akinsho/git-conflict.nvim",
-		},
+		-- {
+		-- 	"akinsho/git-conflict.nvim",
+		-- },
 		"lewis6991/gitsigns.nvim",
 		"sindrets/diffview.nvim",
 	})

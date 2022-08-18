@@ -59,7 +59,7 @@ export NVM_DIR="$HOME/.nvm"
 
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
+ulimit -n 1024
+
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
-
-ulimit -n 1024
