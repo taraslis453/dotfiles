@@ -143,7 +143,7 @@ return packer.startup(function(use)
 		},
 		{
 			"akinsho/bufferline.nvim",
-			tag = "v2.4.0",
+			--[[ tag = "v2.4.0", ]]
 		},
 		{
 			"rmagatti/goto-preview",
@@ -187,7 +187,8 @@ return packer.startup(function(use)
 	require("plugins.config.lsp.init")
 	use({
 		"neovim/nvim-lspconfig", -- enable LSP
-		"williamboman/nvim-lsp-installer", -- simple to use language server installer
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
 		"tamago324/nlsp-settings.nvim", -- language server settings defined in json for
 		"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
 		"simrat39/symbols-outline.nvim",
@@ -239,7 +240,7 @@ return packer.startup(function(use)
 	-- Git
 	require("plugins.config.gitsigns")
 	require("plugins.config.diffview")
-	-- require("plugins.config.git-conflict")
+	require("plugins.config.git-conflict")
 	require("plugins.config.octo")
 	use({
 		{
@@ -249,13 +250,14 @@ return packer.startup(function(use)
 				"nvim-telescope/telescope.nvim",
 				"kyazdani42/nvim-web-devicons",
 			},
-			commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2",
+			--[[ commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2", ]]
 		},
-		-- {
-		-- 	"akinsho/git-conflict.nvim",
-		-- },
+		{
+			"akinsho/git-conflict.nvim",
+		},
 		"lewis6991/gitsigns.nvim",
 		"sindrets/diffview.nvim",
+		--[[ "f-person/git-blame.nvim", ]]
 	})
 
 	-- Debugging / testing

@@ -1,23 +1,3 @@
--- local dap = require("dap")
-
--- dap.adapters.go = {
--- 	type = "executable",
--- 	command = "node",
--- 	args = { os.getenv("HOME") .. "/.vscode/extensions/golang.go-0.32.0/dist/debugAdapter.js" },
--- }
---
--- dap.configurations.go = {
--- 	{
--- 		type = "go",
--- 		name = "Debug server",
--- 		request = "launch",
--- 		showLog = false,
--- 		program = "${workspaceFolder}/api-poc/cmd/main.go",
--- 		dlvToolPath = vim.fn.exepath("dlv"),
--- 	},
--- }
---
-
 local function map(mode, lhs, rhs, opts)
 	local options = { noremap = true }
 	if opts then

@@ -11,7 +11,9 @@ bufferline.setup({
 		right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
 		left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
 		middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
-		indicator_icon = "▎",
+		indicator = {
+			style = "underline",
+		},
 		buffer_close_icon = "",
 		modified_icon = "●",
 		close_icon = "",
@@ -129,103 +131,95 @@ bufferline.setup({
 	},
 	highlights = {
 		error = {
-			guifg = { attribute = "fg", highlight = "DiagnosticError" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticError" },
 		},
 		error_selected = {
-			guifg = { attribute = "fg", highlight = "DiagnosticError" },
-			gui = "bold,italic",
+			fg = { attribute = "fg", highlight = "DiagnosticError" },
+			italic = true,
+			bold = true,
 		},
 		error_diagnostic_selected = {
-			guifg = { attribute = "fg", highlight = "DiagnosticError" },
-			gui = "bold,italic",
+			fg = { attribute = "fg", highlight = "DiagnosticError" },
+			italic = true,
+			bold = true,
 		},
 		error_diagnostic = {
-			guifg = { attribute = "fg", highlight = "DiagnosticError" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticError" },
 		},
 		error_visible = {
-			guifg = { attribute = "fg", highlight = "DiagnosticError" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticError" },
 		},
 		error_diagnostic_visible = {
-			guifg = { attribute = "fg", highlight = "DiagnosticError" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticError" },
 		},
 
 		warning = {
-			guifg = { attribute = "fg", highlight = "DiagnosticWarn" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticWarn" },
 		},
 		warning_diagnostic = {
-			guifg = { attribute = "fg", highlight = "DiagnosticWarn" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticWarn" },
 		},
 		warning_selected = {
-			guifg = { attribute = "fg", highlight = "DiagnosticWarn" },
-			gui = "bold,italic",
+			fg = { attribute = "fg", highlight = "DiagnosticWarn" },
+			bold = true,
+			italic = true,
 		},
 		warning_diagnostic_selected = {
-			guifg = { attribute = "fg", highlight = "DiagnosticWarn" },
-			gui = "bold,italic",
+			fg = { attribute = "fg", highlight = "DiagnosticWarn" },
+			bold = true,
+			italic = true,
 		},
 		warning_visible = {
-			guifg = { attribute = "fg", highlight = "DiagnosticWarn" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticWarn" },
 		},
 		warning_diagnostic_visible = {
-			guifg = { attribute = "fg", highlight = "DiagnosticWarn" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticWarn" },
 		},
 
 		info = {
-			guifg = { attribute = "fg", highlight = "DiagnosticInfo" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticInfo" },
 		},
 		info_diagnostic = {
-			guifg = { attribute = "fg", highlight = "DiagnosticInfo" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticInfo" },
 		},
 		info_selected = {
-			guifg = { attribute = "fg", highlight = "DiagnosticInfo" },
-			gui = "bold,italic",
+			fg = { attribute = "fg", highlight = "DiagnosticInfo" },
+			bold = true,
+			italic = true,
 		},
 		info_diagnostic_selected = {
-			guifg = { attribute = "fg", highlight = "DiagnosticInfo" },
-			gui = "bold,italic",
+			fg = { attribute = "fg", highlight = "DiagnosticInfo" },
+			bold = true,
+			italic = true,
 		},
 		info_visible = {
-			guifg = { attribute = "fg", highlight = "DiagnosticInfo" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticInfo" },
 		},
 		info_diagnostic_visible = {
-			guifg = { attribute = "fg", highlight = "DiagnosticInfo" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticInfo" },
 		},
 
 		hint = {
-			guifg = { attribute = "fg", highlight = "DiagnosticHint" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticHint" },
 		},
 		hint_diagnostic = {
-			guifg = { attribute = "fg", highlight = "DiagnosticHint" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticHint" },
 		},
 		hint_selected = {
-			guifg = { attribute = "fg", highlight = "DiagnosticHint" },
-			gui = "bold,italic",
+			fg = { attribute = "fg", highlight = "DiagnosticHint" },
+			bold = true,
+			italic = true,
 		},
 		hint_diagnostic_selected = {
-			guifg = { attribute = "fg", highlight = "DiagnosticHint" },
-			gui = "bold,italic",
+			fg = { attribute = "fg", highlight = "DiagnosticHint" },
+			bold = true,
+			italic = true,
 		},
 		hint_visible = {
-			guifg = { attribute = "fg", highlight = "DiagnosticHint" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticHint" },
 		},
 		hint_diagnostic_visible = {
-			guifg = { attribute = "fg", highlight = "DiagnosticHint" },
-			gui = "none",
+			fg = { attribute = "fg", highlight = "DiagnosticHint" },
 		},
 	},
 })

@@ -3,3 +3,4 @@ vim.g.symbols_outline = {
 }
 
 vim.api.nvim_set_keymap("n", "<space><space>", ":SymbolsOutline<CR>", { noremap = true, silent = true })
+require("symbols-outline").setup({})
