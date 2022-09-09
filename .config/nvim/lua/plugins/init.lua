@@ -21,7 +21,7 @@ end
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost init.lua source <afile> | PackerSync
+    autocmd BufWritePost init.lua source <afile> | PackerSync --preview
   augroup end
 ]])
 
@@ -73,7 +73,7 @@ return packer.startup(function(use)
 		{
 			"kyazdani42/nvim-tree.lua",
 			-- TODO: remove when fix for padding of last folder
-			commit = "0f96e32326a842798b6b8e638a91464521e4ef71",
+			--[[ commit = "0f96e32326a842798b6b8e638a91464521e4ef71", ]]
 			requires = {
 				"kyazdani42/nvim-web-devicons", -- optional, for file icon
 			},
@@ -250,8 +250,9 @@ return packer.startup(function(use)
 				"nvim-telescope/telescope.nvim",
 				"kyazdani42/nvim-web-devicons",
 			},
-			--[[ commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2", ]]
+			commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2",
 		},
+		-- probably don't need this cause diffview has it
 		{
 			"akinsho/git-conflict.nvim",
 		},
