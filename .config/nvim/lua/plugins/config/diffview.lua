@@ -1,10 +1,17 @@
 local cb = require("diffview.config").diffview_callback
+local actions = require("diffview.actions")
 require("diffview").setup({
 	diff_binaries = false, -- Show diffs for binaries
 	use_icons = true, -- Requires nvim-web-devicons
 	file_panel = {
 		win_config = {
 			width = 35,
+		},
+	},
+	view = {
+		merge_tool = {
+			layout = "diff3_mixed",
+			disable_diagnostics = false,
 		},
 	},
 	key_bindings = {
@@ -16,6 +23,14 @@ require("diffview").setup({
 			["<s-tab>"] = cb("select_prev_entry"), -- Open the diff for the previous file
 			["<leader>e"] = cb("focus_files"), -- Bring focus to the files panel
 			["<leader>b"] = cb("toggle_files"), -- Toggle the files panel.
+			["g<C-x>"] = cb("cycle_layout"),
+			["[x"] = actions.prev_conflict,
+			["]x"] = actions.next_conflict,
+			["gco"] = actions.conflict_choose("ours"),
+			["gct"] = actions.conflict_choose("theirs"),
+			["gcb"] = actions.conflict_choose("base"),
+			["gca"] = actions.conflict_choose("all"),
+			["gcn"] = actions.conflict_choose("none"),
 		},
 		file_panel = {
 			["j"] = cb("next_entry"), -- Bring the cursor to the next file entry
