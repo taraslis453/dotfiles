@@ -91,6 +91,7 @@ nvim_tree.setup({
 		require_confirm = true,
 	},
 	renderer = {
+		indent_width = 2,
 		icons = {
 			webdev_colors = true,
 			glyphs = {

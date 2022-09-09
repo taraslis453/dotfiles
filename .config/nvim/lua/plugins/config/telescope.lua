@@ -67,6 +67,9 @@ telescope.setup({
 		find_files = {
 			theme = "dropdown",
 		},
+		git_status = {
+			theme = "dropdown",
+		},
 		live_grep = {
 			theme = "dropdown",
 		},

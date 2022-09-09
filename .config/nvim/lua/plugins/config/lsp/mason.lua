@@ -13,7 +13,7 @@ local servers = {
 	"golangci_lint_ls",
 	"eslint",
 	"sumneko_lua",
-	"typescript-language-server",
+	"tsserver",
 }
 
 local settings = {
