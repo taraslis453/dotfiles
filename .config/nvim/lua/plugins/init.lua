@@ -139,7 +139,7 @@ return packer.startup(function(use)
 		"kevinhwang91/nvim-bqf",
 		{
 			"akinsho/toggleterm.nvim",
-			tag = "v2.1.0",
+			--[[ tag = "v2.1.0", ]]
 		},
 		{
 			"akinsho/bufferline.nvim",
@@ -240,7 +240,7 @@ return packer.startup(function(use)
 	-- Git
 	require("plugins.config.gitsigns")
 	require("plugins.config.diffview")
-	require("plugins.config.git-conflict")
+	--[[ require("plugins.config.git-conflict") ]]
 	require("plugins.config.octo")
 	use({
 		{
@@ -252,13 +252,8 @@ return packer.startup(function(use)
 			},
 			commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2",
 		},
-		-- probably don't need this cause diffview has it
-		{
-			"akinsho/git-conflict.nvim",
-		},
 		"lewis6991/gitsigns.nvim",
 		"sindrets/diffview.nvim",
-		--[[ "f-person/git-blame.nvim", ]]
 	})
 
 	-- Debugging / testing
@@ -275,14 +270,6 @@ return packer.startup(function(use)
 			"nvim-neotest/neotest-go",
 		},
 	})
-
-	-- Database
-	-- TODO: migrate to this
-	-- use({
-	-- 	"kristijanhusak/vim-dadbod-ui",
-	-- 	"tpope/vim-dadbod",
-	-- 	"kristijanhusak/vim-dadbod-completion",
-	-- })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

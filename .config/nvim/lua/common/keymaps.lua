@@ -58,11 +58,12 @@ keymap("n", "]q", ":cn<CR>", opts)
 keymap("n", "[q", ":cp<CR>", opts)
 
 -- remove /n on copy in terminal with C-v
+-- used for copying to clipboard in terminal
 vim.cmd([[
-vmap <C-C> "+y:let @+ = substitute(@+, "\n\n\n*", "±", "g")
-\\|:let @+ = substitute(@+, "\n", "", "g")<CR>
- \\|:let @+ = substitute(@+, "±", "\\n", "g")<CR>
- \\|'<
+  vmap <C-C> "+y:let @+ = substitute(@+, "\n\n\n*", "±", "g")
+  \\|:let @+ = substitute(@+, "\n", "", "g")<CR>
+   \\|:let @+ = substitute(@+, "±", "\\n", "g")<CR>
+   \\|'<
 ]])
 
 keymap("n", "<space>q", ":q<CR>", opts)
@@ -73,6 +74,7 @@ keymap("n", "<space>z", ":wq<CR>", opts)
 
 keymap("n", "<space>f", ":Format<CR>", opts)
 
+-- exit terminal mode
 vim.cmd([[tnoremap <A-\> <C-\><C-n>]])
 
 -- Disable accidentally pressing ctrl-z and suspending
