@@ -46,14 +46,7 @@ return packer.startup(function(use)
 
 	-- Utils
 	use({
-		"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
 		"moll/vim-bbye",
-		{
-			"luukvbaal/stabilize.nvim",
-			config = function()
-				require("stabilize").setup()
-			end,
-		},
 		"folke/which-key.nvim",
 		"lewis6991/impatient.nvim",
 		{
@@ -72,8 +65,6 @@ return packer.startup(function(use)
 	use({
 		{
 			"kyazdani42/nvim-tree.lua",
-			-- TODO: remove when fix for padding of last folder
-			--[[ commit = "0f96e32326a842798b6b8e638a91464521e4ef71", ]]
 			requires = {
 				"kyazdani42/nvim-web-devicons", -- optional, for file icon
 			},
@@ -233,6 +224,15 @@ return packer.startup(function(use)
 				vim.g.copilot_no_tab_map = true
 				vim.g.copilot_assume_mapped = true
 				vim.g.copilot_tab_fallback = ""
+				vim.g.copilot_filetypes = {
+					["*"] = false,
+					["javascript"] = true,
+					["javascriptreact"] = true,
+					["typescript"] = true,
+					["typescriptreact"] = true,
+					["lua"] = true,
+					["go"] = true,
+				}
 			end,
 		},
 	})
@@ -240,7 +240,6 @@ return packer.startup(function(use)
 	-- Git
 	require("plugins.config.gitsigns")
 	require("plugins.config.diffview")
-	--[[ require("plugins.config.git-conflict") ]]
 	require("plugins.config.octo")
 	use({
 		{
@@ -250,7 +249,7 @@ return packer.startup(function(use)
 				"nvim-telescope/telescope.nvim",
 				"kyazdani42/nvim-web-devicons",
 			},
-			commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2",
+			--[[ commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2", ]]
 		},
 		"lewis6991/gitsigns.nvim",
 		"sindrets/diffview.nvim",
@@ -265,7 +264,6 @@ return packer.startup(function(use)
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
 
 			"nvim-neotest/neotest-go",
 		},
