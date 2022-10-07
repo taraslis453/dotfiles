@@ -66,6 +66,7 @@ telescope.setup({
 	pickers = {
 		find_files = {
 			theme = "dropdown",
+			hidden = true,
 		},
 		git_status = {
 			theme = "dropdown",

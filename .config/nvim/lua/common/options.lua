@@ -37,6 +37,7 @@ local options = {
 	foldlevel = 100,
 	foldlevelstart = -1,
 	foldenable = true,
+	splitkeep = "screen",
 }
 
 vim.opt.shortmess:append("c")
