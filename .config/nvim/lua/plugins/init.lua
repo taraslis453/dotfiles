@@ -64,9 +64,9 @@ return packer.startup(function(use)
 	require("plugins.config.todo-comments")
 	use({
 		{
-			"kyazdani42/nvim-tree.lua",
+			"nvim-tree/nvim-tree.lua",
 			requires = {
-				"kyazdani42/nvim-web-devicons", -- optional, for file icon
+				"nvim-tree/nvim-web-devicons", -- optional, for file icon
 			},
 		},
 		{
@@ -143,6 +143,36 @@ return packer.startup(function(use)
 					default_mappings = true,
 				})
 			end,
+		},
+		{
+			"rcarriga/nvim-notify",
+			config = function()
+				vim.notify = require("notify")
+			end,
+		},
+		{
+			"folke/noice.nvim",
+			event = "VimEnter",
+			config = function()
+				require("noice").setup({
+					cmdline = {
+						view = "cmdline",
+					},
+					routes = {
+						{
+							filter = {
+								event = "cmdline",
+								find = "^%s*[/?]",
+							},
+							view = "cmdline",
+						},
+					},
+				})
+			end,
+			requires = {
+				"MunifTanjim/nui.nvim",
+				"rcarriga/nvim-notify",
+			},
 		},
 	})
 
@@ -247,7 +277,7 @@ return packer.startup(function(use)
 			requires = {
 				"nvim-lua/plenary.nvim",
 				"nvim-telescope/telescope.nvim",
-				"kyazdani42/nvim-web-devicons",
+				"nvim-tree/nvim-web-devicons",
 			},
 			--[[ commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2", ]]
 		},
