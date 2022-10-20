@@ -56,6 +56,18 @@ return packer.startup(function(use)
 				require("plugins.config.session")
 			end,
 		},
+		{
+			"segeljakt/vim-silicon",
+			config = function()
+				vim.cmd([[
+        let g:silicon={
+          \   'theme':              'GitHub',
+          \   'font':               'JetBrainsMono Nerd Font',
+          \   'to-clipboard':       v:true,
+        \ }]])
+			end,
+			cmd = { "Silicon" },
+		},
 	})
 
 	-- File explorer
@@ -158,6 +170,9 @@ return packer.startup(function(use)
 					cmdline = {
 						view = "cmdline",
 					},
+					lsp_progress = {
+						enabled = true,
+					},
 					routes = {
 						{
 							filter = {
@@ -182,6 +197,7 @@ return packer.startup(function(use)
 	use({
 		"projekt0n/github-nvim-theme",
 		"norcalli/nvim-colorizer.lua",
+		"folke/tokyonight.nvim",
 	})
 
 	-- Treesitter
