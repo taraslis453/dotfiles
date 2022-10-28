@@ -68,7 +68,10 @@ local spaces = function()
 	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
-local navic = require("nvim-navic")
+local status_ok, navic = pcall(require, "nvim-navic")
+if not status_ok then
+  return
+end
 
 lualine.setup({
 	options = {
