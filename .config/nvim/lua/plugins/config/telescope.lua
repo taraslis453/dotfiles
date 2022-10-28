@@ -87,7 +87,7 @@ telescope.setup({
 	},
 })
 telescope.load_extension("fzf")
-telescope.load_extension("noice")
+
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<leader>g", ":Telescope live_grep<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>t", ":Telescope git_status<cr>", opts)

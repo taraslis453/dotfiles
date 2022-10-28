@@ -122,6 +122,7 @@ return packer.startup(function(use)
 	require("plugins.config.alpha")
 	require("plugins.config.toggleterm")
 	require("plugins.config.lightbulb")
+
 	use({
 		"stevearc/dressing.nvim",
 		"kosayoda/nvim-lightbulb",
@@ -157,20 +158,12 @@ return packer.startup(function(use)
 		{
 			"folke/noice.nvim",
 			event = "VimEnter",
-			commit = "03c463a",
+			--[[ commit = "03c463a", ]]
+			commit = "cdb25b8a398dae6d72fea3e5721a7c367b2a19f1",
 			config = function()
 				require("noice").setup({
 					cmdline = {
 						view = "cmdline",
-					},
-					routes = {
-						{
-							filter = {
-								event = "cmdline",
-								find = "^%s*[/?]",
-							},
-							view = "cmdline",
-						},
 					},
 				})
 			end,
@@ -192,7 +185,6 @@ return packer.startup(function(use)
 
 	-- Treesitter
 	require("plugins.config.treesitter")
-	require("hlargs").setup()
 	use({
 		{
 			"nvim-treesitter/nvim-treesitter",
@@ -206,8 +198,12 @@ return packer.startup(function(use)
 		"nvim-treesitter/nvim-treesitter-refactor",
 		"p00f/nvim-ts-rainbow",
 		"nvim-treesitter/nvim-treesitter-context",
-
-		"m-demare/hlargs.nvim",
+		{
+			"m-demare/hlargs.nvim",
+			config = function()
+				require("hlargs").setup()
+			end,
+		},
 	})
 
 	-- LSP

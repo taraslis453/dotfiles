@@ -22,8 +22,17 @@ map("n", "<space>ds", ':lua local widgets=require"dap.ui.widgets";widgets.center
 map("n", "<space>dac", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
 map("n", "<space>du", ':lua require"dapui".toggle()<CR>')
 
-require("dap-go").setup()
-require("nvim-dap-virtual-text").setup()
+local status_ok, dapgo = pcall(require, "dap-go")
+if not status_ok then
+	return
+end
+dapgo.setup()
+
+local status_ok, nvimDapVirtualText = pcall(require, "nvim-dap-virtual-text")
+if not status_ok then
+	return
+end
+nvimDapVirtualText.setup()
 
 require("dapui").setup({
 	icons = { expanded = "▾", collapsed = "▸" },
