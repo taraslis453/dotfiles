@@ -32,14 +32,6 @@ M.setup = function()
 	}
 
 	vim.diagnostic.config(config)
-
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
-	})
-
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
-	})
 end
 
 local function lsp_highlight_document(client, bufnr)
@@ -133,15 +125,6 @@ M.on_attach = function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
 	end
-	if client.supports_method("textDocument/signatureHelp") then
-		vim.api.nvim_create_autocmd({ "CursorHoldI" }, {
-			pattern = "<buffer>",
-			group = vim.api.nvim_create_augroup("LspSignature", {}),
-			callback = function()
-				vim.lsp.buf.signature_help()
-			end,
-		})
-	end
 	if client.supports_method("textDocument/documentSymbol") then
 		navic.attach(client, bufnr)
 	end
@@ -156,10 +139,6 @@ local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_ok then
 	return
 end
--- capabilities.textDocument.foldingRange = {
--- 	dynamicRegistration = false,
--- 	lineFoldingOnly = true,
--- }
 
 M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
