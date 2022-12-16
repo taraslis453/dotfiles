@@ -149,46 +149,48 @@ return packer.startup(function(use)
 				})
 			end,
 		},
-		{
-			"rcarriga/nvim-notify",
-			config = function()
-				vim.notify = require("notify")
-			end,
-		},
-		{
-			"folke/noice.nvim",
-			event = "VimEnter",
-			config = function()
-				require("noice").setup({
-					presets = {
-						lsp_doc_border = true,
-					},
-					cmdline = {
-						view = "cmdline",
-					},
-					lsp = {
-						override = {
-							["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-							["vim.lsp.util.stylize_markdown"] = true,
-							["cmp.entry.get_documentation"] = true,
-						},
-					},
-				})
-			end,
-			requires = {
-				"MunifTanjim/nui.nvim",
-				"rcarriga/nvim-notify",
-			},
-		},
+		--[[ { ]]
+		--[[ 	"rcarriga/nvim-notify", ]]
+		--[[ 	config = function() ]]
+		--[[ 		vim.notify = require("notify") ]]
+		--[[ 	end, ]]
+		--[[ }, ]]
+		--[[ { ]]
+		--[[ "folke/noice.nvim", ]]
+		--[[ event = "VimEnter", ]]
+		--[[ config = function() ]]
+		--[[ 	require("noice").setup({ ]]
+		--[[ 		presets = { ]]
+		--[[ 			lsp_doc_border = true, ]]
+		--[[ 		}, ]]
+		--[[ 		cmdline = { ]]
+		--[[ 			view = "cmdline", ]]
+		--[[ 		}, ]]
+		--[[ 		lsp = { ]]
+		--[[ 			override = { ]]
+		--[[ 				["vim.lsp.util.convert_input_to_markdown_lines"] = true, ]]
+		--[[ 				["vim.lsp.util.stylize_markdown"] = true, ]]
+		--[[ 				["cmp.entry.get_documentation"] = true, ]]
+		--[[ 			}, ]]
+		--[[ 		}, ]]
+		--[[ 	}) ]]
+		--[[ end, ]]
+		--[[ requires = { ]]
+		--[[ 	"MunifTanjim/nui.nvim", ]]
+		--[[ 	"rcarriga/nvim-notify", ]]
+		--[[ }, ]]
+		--[[ }, ]]
 	})
 
 	-- Code reading
 	require("plugins.config.colorscheme")
 	require("plugins.config.colorizer")
 	use({
+		{ "catppuccin/nvim", as = "catppuccin" },
 		"projekt0n/github-nvim-theme",
 		"norcalli/nvim-colorizer.lua",
 		"folke/tokyonight.nvim",
+		"f-person/auto-dark-mode.nvim",
 	})
 
 	-- Treesitter
@@ -289,7 +291,6 @@ return packer.startup(function(use)
 				"nvim-telescope/telescope.nvim",
 				"nvim-tree/nvim-web-devicons",
 			},
-			--[[ commit = "7919cca0b55830c0fdc1193ebeb6e11a893087a2", ]]
 		},
 		"lewis6991/gitsigns.nvim",
 		"sindrets/diffview.nvim",

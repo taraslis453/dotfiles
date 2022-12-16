@@ -75,6 +75,13 @@ bufferline.setup({
 					priority = 3,
 				},
 				{
+					name = "s",
+					matcher = function(buf)
+						return buf.path:match("storage")
+					end,
+					priority = 3,
+				},
+				{
 					name = "a",
 					matcher = function(buf)
 						if not buf.filename:match("api") then
