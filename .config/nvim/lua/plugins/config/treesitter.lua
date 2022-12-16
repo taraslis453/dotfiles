@@ -75,9 +75,10 @@ configs.setup({
 		lsp_interop = {
 			enable = true,
 			border = "none",
-			peek_definition_code = {
-				["df"] = "@function.outer",
-			},
+			-- NOTE: commented it because when I want to delete in visual mode I have delay
+			--[[ peek_definition_code = { ]]
+			--[[ 	["df"] = "@function.outer", ]]
+			--[[ }, ]]
 		},
 	},
 	textsubjects = {

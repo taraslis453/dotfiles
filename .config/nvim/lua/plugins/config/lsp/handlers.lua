@@ -31,6 +31,14 @@ M.setup = function()
 		},
 	}
 
+	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+		border = "rounded",
+	})
+
+	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+		border = "rounded",
+	})
+
 	vim.diagnostic.config(config)
 end
 
@@ -128,6 +136,16 @@ M.on_attach = function(client, bufnr)
 	if client.supports_method("textDocument/documentSymbol") then
 		navic.attach(client, bufnr)
 	end
+
+	--[[ if client.supports_method("textDocument/signatureHelp") then ]]
+	--[[ 	vim.api.nvim_create_autocmd({ "CursorHoldI" }, { ]]
+	--[[ 		pattern = "<buffer>", ]]
+	--[[ 		group = vim.api.nvim_create_augroup("LspSignature", {}), ]]
+	--[[ 		callback = function() ]]
+	--[[ 			vim.lsp.buf.signature_help() ]]
+	--[[ 		end, ]]
+	--[[ 	}) ]]
+	--[[ end ]]
 
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client, bufnr)
