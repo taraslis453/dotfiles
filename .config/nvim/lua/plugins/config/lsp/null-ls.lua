@@ -5,6 +5,7 @@ end
 
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
 local formatting = null_ls.builtins.formatting
+local code_actions = null_ls.builtins.code_actions
 null_ls.setup({
 	sources = {
 		formatting.prettierd,
@@ -14,6 +15,7 @@ null_ls.setup({
 		formatting.stylelint.with({
 			filetypes = { "typescript", "typescriptreact", "javascriptreact" },
 		}),
+		code_actions.gomodifytags,
 	},
 	-- format on save
 	on_attach = function(client, bufnr)

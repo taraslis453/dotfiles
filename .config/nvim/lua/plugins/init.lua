@@ -149,6 +149,7 @@ return packer.startup(function(use)
 				})
 			end,
 		},
+
 		--[[ { ]]
 		--[[ 	"rcarriga/nvim-notify", ]]
 		--[[ 	config = function() ]]
@@ -272,6 +273,7 @@ return packer.startup(function(use)
 					["javascriptreact"] = true,
 					["typescript"] = true,
 					["typescriptreact"] = true,
+					["css"] = true,
 					["lua"] = true,
 					["go"] = true,
 				}

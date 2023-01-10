@@ -19,6 +19,7 @@ fi
 export ZSH="/Users/taras/.oh-my-zsh"
 export PATH=$PATH:$HOME/go/bin
 export GOPATH=$HOME/usr/local/go/bin/go
+export GOPRIVATE=github.com/softcery/packages
 
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-vi-mode )
 
