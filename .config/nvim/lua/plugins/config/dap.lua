@@ -76,7 +76,7 @@ require("dapui").setup({
 			close = { "q", "<Esc>" },
 		},
 	},
-	windows = { indent = 1 },
+	render = { indent = 1 },
 })
 
 -- uncomment to open dapui on start

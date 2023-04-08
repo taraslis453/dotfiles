@@ -10,6 +10,7 @@ vim.cmd([["
     autocmd WinEnter,BufEnter * setlocal cursorline 
     autocmd WinLeave,BufLeave * setlocal nocursorline 
   augroup END
+
 ""]])
 
 local create_autocmds = require("utils").create_autocmds

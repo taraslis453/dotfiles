@@ -6,12 +6,6 @@ nvim_tree.setup({
 	respect_buf_cwd = true,
 	disable_netrw = true,
 	hijack_netrw = false,
-	open_on_setup = true,
-	ignore_ft_on_setup = {
-		"startify",
-		"dashboard",
-		"alpha",
-	},
 	open_on_tab = false,
 	hijack_cursor = true,
 	update_cwd = true,
@@ -26,8 +20,8 @@ nvim_tree.setup({
 	},
 	update_focused_file = {
 		enable = true,
-		update_cwd = true,
-		ignore_list = {},
+		update_root = true,
+		ignore_list = { "toggleterm", "DiffviewFiles" },
 	},
 	system_open = {
 		cmd = nil,
@@ -139,8 +133,23 @@ nvim_tree.setup({
 	},
 })
 
+local function open_nvim_tree()
+	local IGNORED_FT = {
+		"startify",
+		"dashboard",
+		"alpha",
+	}
+	if vim.tbl_contains(IGNORED_FT) then
+		return
+	end
+
+	-- always open the tree
+	require("nvim-tree.api").tree.open()
+end
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+
 local opts = { noremap = true, silent = true }
 
 vim.api.nvim_set_keymap("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
-vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeFindFile<CR>", opts)
+vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeFocus<CR>", opts)
 vim.api.nvim_set_keymap("n", "<space>r", ":NvimTreeRefresh<CR>", opts)
