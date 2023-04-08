@@ -12,7 +12,7 @@ local servers = {
 	"gopls",
 	"golangci_lint_ls",
 	"eslint",
-	"sumneko_lua",
+	"lua_ls",
 	"tsserver",
 }
 

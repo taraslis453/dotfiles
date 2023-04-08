@@ -92,7 +92,6 @@ M.on_attach = function(client, bufnr)
 			debug = false,
 			disable_commands = false,
 			enable_import_on_completion = true,
-
 			-- import all
 			import_all_timeout = 5000, -- ms
 			import_all_priorities = nil,
@@ -100,11 +99,9 @@ M.on_attach = function(client, bufnr)
 			import_all_select_source = false,
 			-- if false will avoid organizing imports
 			always_organize_imports = false,
-
 			-- filter diagnostics
 			filter_out_diagnostics_by_severity = {},
 			filter_out_diagnostics_by_code = {},
-
 			-- inlay hints
 			auto_inlay_hints = false,
 			-- update imports on file move
@@ -146,7 +143,6 @@ M.on_attach = function(client, bufnr)
 	--[[ 		end, ]]
 	--[[ 	}) ]]
 	--[[ end ]]
-
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client, bufnr)
 end

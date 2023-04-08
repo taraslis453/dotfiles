@@ -61,11 +61,11 @@ return packer.startup(function(use)
 			cmd = { "Silicon" },
 		},
 	})
-
 	-- File explorer
 	require("plugins.config.nvim-tree")
 	require("plugins.config.telescope")
 	require("plugins.config.todo-comments")
+
 	use({
 		{
 			"nvim-tree/nvim-tree.lua",
@@ -80,6 +80,7 @@ return packer.startup(function(use)
 				"nvim-lua/plenary.nvim",
 				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 			},
+			tag = "0.1.0",
 		},
 		"folke/todo-comments.nvim",
 	})
@@ -94,9 +95,7 @@ return packer.startup(function(use)
 		{
 			"kylechui/nvim-surround",
 			config = function()
-				require("nvim-surround").setup({
-					-- Configuration here, or leave empty to use defaults
-				})
+				require("nvim-surround").setup({})
 			end,
 		},
 	})
@@ -135,11 +134,9 @@ return packer.startup(function(use)
 		"kevinhwang91/nvim-bqf",
 		{
 			"akinsho/toggleterm.nvim",
-			--[[ tag = "v2.1.0", ]]
 		},
 		{
 			"akinsho/bufferline.nvim",
-			--[[ tag = "v2.4.0", ]]
 		},
 		{
 			"rmagatti/goto-preview",
@@ -149,38 +146,6 @@ return packer.startup(function(use)
 				})
 			end,
 		},
-
-		--[[ { ]]
-		--[[ 	"rcarriga/nvim-notify", ]]
-		--[[ 	config = function() ]]
-		--[[ 		vim.notify = require("notify") ]]
-		--[[ 	end, ]]
-		--[[ }, ]]
-		--[[ { ]]
-		--[[ "folke/noice.nvim", ]]
-		--[[ event = "VimEnter", ]]
-		--[[ config = function() ]]
-		--[[ 	require("noice").setup({ ]]
-		--[[ 		presets = { ]]
-		--[[ 			lsp_doc_border = true, ]]
-		--[[ 		}, ]]
-		--[[ 		cmdline = { ]]
-		--[[ 			view = "cmdline", ]]
-		--[[ 		}, ]]
-		--[[ 		lsp = { ]]
-		--[[ 			override = { ]]
-		--[[ 				["vim.lsp.util.convert_input_to_markdown_lines"] = true, ]]
-		--[[ 				["vim.lsp.util.stylize_markdown"] = true, ]]
-		--[[ 				["cmp.entry.get_documentation"] = true, ]]
-		--[[ 			}, ]]
-		--[[ 		}, ]]
-		--[[ 	}) ]]
-		--[[ end, ]]
-		--[[ requires = { ]]
-		--[[ 	"MunifTanjim/nui.nvim", ]]
-		--[[ 	"rcarriga/nvim-notify", ]]
-		--[[ }, ]]
-		--[[ }, ]]
 	})
 
 	-- Code reading

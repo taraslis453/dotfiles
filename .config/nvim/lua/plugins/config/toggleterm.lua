@@ -4,8 +4,14 @@ if not status_ok then
 end
 toggleterm.setup({
 	shade_terminals = false,
+	persist_mode = true,
 	open_mapping = [[<C-t>]],
 	start_in_insert = false,
+	update_focused_file = {
+		enable = true,
+		update_root = true,
+		ignore_list = { "toggleterm" },
+	},
 	winbar = {
 		enabled = true,
 	},
