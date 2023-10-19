@@ -62,7 +62,6 @@ require("dapui").setup({
 			position = "left", -- Can be "left", "right", "top", "bottom"
 		},
 		{
-
 			elements = { "repl" },
 			size = 10,
 			position = "bottom", -- Can be "left", "right", "top", "bottom"
@@ -90,7 +89,6 @@ require("dapui").setup({
 --[[ dap.listeners.before.before_exited["dapui_config"] = function() ]]
 --[[ 	dapui.close() ]]
 --[[ end ]]
-
 vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939" })
 vim.api.nvim_set_hl(0, "DapBreakpointRejected", { ctermbg = 0, fg = "#61afef" })
 vim.api.nvim_set_hl(0, "DapStopped", { ctermbg = 0, fg = "#98c379" })

@@ -43,7 +43,11 @@ return packer.startup(function(use)
 		"lewis6991/impatient.nvim",
 		{
 			"rmagatti/session-lens",
-			requires = { "rmagatti/auto-session" },
+			commit = "b15e36782d01abacf6cd44e12f3292632064ab91",
+			requires = {
+				"rmagatti/auto-session",
+				commit = "9639b071d9680764b6e57b08c9fa4a336453558d",
+			},
 			config = function()
 				require("plugins.config.session")
 			end,
@@ -80,7 +84,6 @@ return packer.startup(function(use)
 				"nvim-lua/plenary.nvim",
 				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 			},
-			tag = "0.1.0",
 		},
 		"folke/todo-comments.nvim",
 	})
@@ -92,6 +95,7 @@ return packer.startup(function(use)
 		"windwp/nvim-autopairs",
 		"numToStr/Comment.nvim",
 		"tpope/vim-repeat",
+		"tpope/vim-abolish",
 		{
 			"kylechui/nvim-surround",
 			config = function()
@@ -156,7 +160,6 @@ return packer.startup(function(use)
 		"projekt0n/github-nvim-theme",
 		"norcalli/nvim-colorizer.lua",
 		"folke/tokyonight.nvim",
-		"f-person/auto-dark-mode.nvim",
 	})
 
 	-- Treesitter
@@ -197,14 +200,6 @@ return packer.startup(function(use)
 		"folke/trouble.nvim",
 		"MunifTanjim/nui.nvim",
 		"lukas-reineke/indent-blankline.nvim",
-		{
-			"narutoxy/dim.lua",
-			requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-			config = function()
-				require("dim").setup()
-			end,
-		},
-
 		-- show context in statusline
 		{
 			"SmiteshP/nvim-navic",
@@ -233,14 +228,7 @@ return packer.startup(function(use)
 				vim.g.copilot_assume_mapped = true
 				vim.g.copilot_tab_fallback = ""
 				vim.g.copilot_filetypes = {
-					["*"] = false,
-					["javascript"] = true,
-					["javascriptreact"] = true,
-					["typescript"] = true,
-					["typescriptreact"] = true,
-					["css"] = true,
-					["lua"] = true,
-					["go"] = true,
+					["*"] = true,
 				}
 			end,
 		},
