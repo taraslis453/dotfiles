@@ -2,7 +2,6 @@ local status_ok, bufferline = pcall(require, "bufferline")
 if not status_ok then
 	return
 end
-local groups = require("bufferline.groups")
 
 bufferline.setup({
 	options = {
@@ -50,91 +49,6 @@ bufferline.setup({
 		separator_style = "thin", -- | "thick" | "thin" | { 'any', 'any' },
 		enforce_regular_tabs = false,
 		always_show_bufferline = true,
-		groups = {
-			groups.builtin.ungrouped,
-			items = {
-				{
-					name = "d",
-					matcher = function(buf)
-						return buf.path:match("domain")
-					end,
-					priority = 1,
-				},
-				{
-					name = "c",
-					matcher = function(buf)
-						return buf.path:match("controller")
-					end,
-					priority = 2,
-				},
-				{
-					name = "r",
-					matcher = function(buf)
-						return buf.path:match("repository")
-					end,
-					priority = 3,
-				},
-				{
-					name = "s",
-					matcher = function(buf)
-						return buf.path:match("storage")
-					end,
-					priority = 3,
-				},
-				{
-					name = "a",
-					matcher = function(buf)
-						if not buf.filename:match("api") then
-							return buf.path:match("api")
-						end
-					end,
-					priority = 4,
-				},
-				{
-					name = "s",
-					matcher = function(buf)
-						return buf.path:match("service")
-					end,
-					priority = 5,
-				},
-				{
-					name = "shared",
-					matcher = function(buf)
-						return buf.path:match("shared")
-					end,
-				},
-				{
-					name = "entities",
-					matcher = function(buf)
-						return buf.path:match("entities")
-					end,
-				},
-				{
-					name = "features",
-					matcher = function(buf)
-						return buf.path:match("features")
-					end,
-				},
-				{
-					name = "widgets",
-					matcher = function(buf)
-						return buf.path:match("widgets")
-					end,
-				},
-				{
-					name = "pages",
-					matcher = function(buf)
-						return buf.path:match("pages")
-					end,
-				},
-				{
-					name = "app",
-					matcher = function(buf)
-						return buf.path:match("app")
-					end,
-				},
-			},
-		},
 	},
 	highlights = {
 		error = {
@@ -159,7 +73,6 @@ bufferline.setup({
 		error_diagnostic_visible = {
 			fg = { attribute = "fg", highlight = "DiagnosticError" },
 		},
-
 		warning = {
 			fg = { attribute = "fg", highlight = "DiagnosticWarn" },
 		},
@@ -182,7 +95,6 @@ bufferline.setup({
 		warning_diagnostic_visible = {
 			fg = { attribute = "fg", highlight = "DiagnosticWarn" },
 		},
-
 		info = {
 			fg = { attribute = "fg", highlight = "DiagnosticInfo" },
 		},
@@ -205,7 +117,6 @@ bufferline.setup({
 		info_diagnostic_visible = {
 			fg = { attribute = "fg", highlight = "DiagnosticInfo" },
 		},
-
 		hint = {
 			fg = { attribute = "fg", highlight = "DiagnosticHint" },
 		},
