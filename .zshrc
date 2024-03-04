@@ -12,7 +12,7 @@ fi
 
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/taras/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:$HOME/go/bin
 export GOPATH=$HOME/usr/local/go/bin/go
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-vi-mode)
@@ -57,3 +57,11 @@ alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
 ulimit -n 1024
 
+
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/taraslysyi/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/taraslysyi/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/taraslysyi/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/taraslysyi/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

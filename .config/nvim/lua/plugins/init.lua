@@ -154,13 +154,13 @@ return packer.startup(function(use)
 
 	-- Code reading
 	require("plugins.config.colorizer")
-	require("plugins.config.colorscheme")
 	use({
 		{ "catppuccin/nvim", as = "catppuccin" },
 		"projekt0n/github-nvim-theme",
 		"norcalli/nvim-colorizer.lua",
 		"folke/tokyonight.nvim",
 	})
+	require("plugins.config.colorscheme")
 
 	-- Treesitter
 	require("plugins.config.treesitter")
