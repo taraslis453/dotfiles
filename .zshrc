@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -14,7 +12,7 @@ fi
 
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/taras/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:$HOME/go/bin
 export GOPATH=$HOME/usr/local/go/bin/go
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-vi-mode)
@@ -44,8 +42,6 @@ alias n='nvim'
 alias v='vim'
 alias ni='cd && .config/nvim && n'
 alias ls='exa'
-eval $(thefuck --alias)
-alias f='fuck --yeah'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -61,14 +57,11 @@ alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
 ulimit -n 1024
 
-### Codex CLI setup - start
-export CODEX_CLI_PATH=/Users/taras/codex
-source "$CODEX_CLI_PATH/scripts/zsh_plugin.zsh"
-### Codex CLI setup - end
-#
-zvm_after_init_commands+=('bindkey '^G' create_completion')
 
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/taraslysyi/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/taraslysyi/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/taraslysyi/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/taraslysyi/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
