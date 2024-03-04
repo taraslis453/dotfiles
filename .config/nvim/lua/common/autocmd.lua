@@ -108,6 +108,10 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 	pattern = "*",
 	desc = "Show a lightbulb if a code action is available at the current cursor position.",
 	callback = function()
-		require("nvim-lightbulb").update_lightbulb()
+           local status_ok, alpha = pcall(require, "nvim-lightbulb")
+             if not status_ok then
+	        return
+            end
+	    require("nvim-lightbulb").update_lightbulb()
 	end,
 })
