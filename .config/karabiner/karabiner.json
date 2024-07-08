@@ -26,7 +26,8 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^io\\.alacritty$",
                                             "^md\\.obsidian$",
-                                            "^com\\.mojang\\.minecraftlauncher$"
+                                            "^com\\.mojang\\.minecraftlauncher$",
+                                            "^com\\.jetbrains\\.goland$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -63,7 +64,8 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^io\\.alacritty$",
-                                            "^md\\.obsidian$"
+                                            "^md\\.obsidian$",
+                                            "^com\\.jetbrains\\.goland$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
