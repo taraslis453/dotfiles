@@ -11,9 +11,7 @@ end
 local servers = {
   "gopls",
   "golangci_lint_ls",
-  "eslint",
   "lua_ls",
-  "tsserver",
 }
 
 local settings = {
@@ -28,30 +26,46 @@ local settings = {
 mason.setup(settings)
 mason_lspconfig.setup({ ensure_installed = servers, automatic_installation = true })
 
-local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_status_ok then
-  return
-end
+-- Get handlers module
+local handlers = require("plugins.config.lsp.handlers")
 
-local opts = {}
-
+-- Setup each server using the new vim.lsp.config API
 for _, server in pairs(servers) do
-  opts = {
-    on_attach = require("plugins.config.lsp.handlers").on_attach,
-    capabilities = require("plugins.config.lsp.handlers").capabilities,
+  local server_name = vim.split(server, "@")[1]
+  
+  local opts = {
+    on_init = handlers.on_init,
+    on_attach = handlers.on_attach,
+    capabilities = handlers.capabilities,
   }
 
-  server = vim.split(server, "@")[1]
-
-  if server == "jsonls" then
+  -- Apply server-specific settings
+  if server_name == "jsonls" then
     local jsonls_opts = require("plugins.config.lsp.settings.jsonls")
     opts = vim.tbl_deep_extend("force", jsonls_opts, opts)
   end
 
-  if server == "sumneko_lua" then
-    local sumneko_opts = require("plugins.config.lsp.settings.sumneko_lua")
-    opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+  if server_name == "lua_ls" then
+    local lua_ls_opts = require("plugins.config.lsp.settings.lua_ls")
+    opts = vim.tbl_deep_extend("force", lua_ls_opts, opts)
   end
 
-  lspconfig[server].setup(opts)
+  if server_name == "gopls" then
+    local gopls_opts = require("plugins.config.lsp.settings.gopls")
+    opts = vim.tbl_deep_extend("force", gopls_opts, opts)
+  end
+
+  if server_name == "golangci_lint_ls" then
+    -- Only enable for projects with .golangci.yml
+    opts.root_markers = { ".golangci.yml", ".golangci.yaml" }
+  end
+
+  -- Use vim.lsp.config to configure the server
+  vim.lsp.config(server_name, opts)
+  
+  -- Enable the server
+  vim.lsp.enable(server_name)
 end
+
+-- Note: Copilot LSP is automatically managed by copilot.lua plugin
+-- sidekick.nvim will connect to it automatically for NES (Next Edit Suggestions)

@@ -6,7 +6,7 @@ toggleterm.setup({
 	shade_terminals = false,
 	persist_mode = true,
 	open_mapping = [[<C-t>]],
-	start_in_insert = false,
+	start_in_insert = true,
 	update_focused_file = {
 		enable = true,
 		update_root = true,

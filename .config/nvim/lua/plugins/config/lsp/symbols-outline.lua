@@ -1,6 +1,8 @@
-vim.g.symbols_outline = {
-	width = 20,
-}
+-- outline.nvim configuration (replacement for symbols-outline.nvim)
+-- Keymap is now defined in lazy.nvim keys spec
 
-vim.api.nvim_set_keymap("n", "<space><space>", ":SymbolsOutline<CR>", { noremap = true, silent = true })
-require("symbols-outline").setup({})
+require("outline").setup({
+	outline_window = {
+		width = 20,
+	},
+})

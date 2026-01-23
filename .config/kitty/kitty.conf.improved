@@ -1,0 +1,241 @@
+# ═══════════════════════════════════════════════════════════════════
+# KITTY CONFIGURATION - Optimized for Neovim Development
+# ═══════════════════════════════════════════════════════════════════
+
+# ───────────────────────────────────────────────────────────────────
+# PERFORMANCE (Much faster than default)
+# ───────────────────────────────────────────────────────────────────
+# Repaint delay: 10ms (lower = faster, 6-10 is good)
+repaint_delay 10
+# Input delay: 3ms (how long to wait for more input)
+input_delay 3
+# Sync screen updates to monitor refresh rate
+sync_to_monitor yes
+
+# ───────────────────────────────────────────────────────────────────
+# FONT CONFIGURATION (VS Code-like)
+# ───────────────────────────────────────────────────────────────────
+font_family      SF Mono
+bold_font        SF Mono Bold
+italic_font      SF Mono Italic
+bold_italic_font SF Mono Bold Italic
+
+# Alternative fonts (uncomment to try):
+# font_family      JetBrainsMono Nerd Font
+# font_family      FiraCode Nerd Font
+# font_family      Hack Nerd Font
+
+font_size 13.0
+
+# Font rendering
+disable_ligatures never
+font_features none
+
+# Better readability (VS Code-like spacing)
+adjust_line_height  120%
+adjust_column_width 0
+
+# ───────────────────────────────────────────────────────────────────
+# CURSOR & MOUSE
+# ───────────────────────────────────────────────────────────────────
+# Cursor shape: block, beam, or underline
+cursor_shape block
+# Cursor blink interval: 0 = no blink (better for terminal)
+cursor_blink_interval 0
+cursor_stop_blinking_after 15.0
+
+mouse_hide_wait 1.0
+url_color #89b4fa
+url_style curly
+detect_urls yes
+
+# Copy on select (like VS Code)
+copy_on_select yes
+
+# ───────────────────────────────────────────────────────────────────
+# SCROLLBACK (Important for development!)
+# ───────────────────────────────────────────────────────────────────
+# Keep 10,000 lines of history (default: 2000)
+scrollback_lines 10000
+scrollback_pager less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
+# Scrollback pager history size in MB
+scrollback_pager_history_size 10
+
+# Better scrolling
+wheel_scroll_multiplier 5.0
+touch_scroll_multiplier 1.0
+
+# ───────────────────────────────────────────────────────────────────
+# TERMINAL BELL (Disable annoying sounds)
+# ───────────────────────────────────────────────────────────────────
+enable_audio_bell no
+visual_bell_duration 0.0
+window_alert_on_bell no
+bell_on_tab no
+
+# ───────────────────────────────────────────────────────────────────
+# WINDOW LAYOUT (Better for splits)
+# ───────────────────────────────────────────────────────────────────
+remember_window_size  yes
+initial_window_width  1200
+initial_window_height 800
+
+# Window padding (breathing room)
+window_padding_width 4
+
+# Draw minimal borders
+draw_minimal_borders yes
+window_border_width 1.0
+placement_strategy center
+
+# ───────────────────────────────────────────────────────────────────
+# TAB BAR (Better than default)
+# ───────────────────────────────────────────────────────────────────
+tab_bar_min_tabs            1
+tab_bar_edge                bottom
+tab_bar_style               powerline
+tab_powerline_style         slanted
+tab_title_template          {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}
+
+# ───────────────────────────────────────────────────────────────────
+# COLORSCHEME - Catppuccin Mocha (matches Neovim)
+# ───────────────────────────────────────────────────────────────────
+background #1e1e1e
+foreground #cdd6f4
+selection_background #585b70
+selection_foreground #cdd6f4
+url_color #89b4fa
+cursor #f5e0dc
+cursor_text_color #1e1e1e
+
+# Tabs
+active_tab_background #89b4fa
+active_tab_foreground #11111b
+inactive_tab_background #313244
+inactive_tab_foreground #7f849c
+tab_bar_background #181825
+
+# Windows
+active_border_color #89b4fa
+inactive_border_color #313244
+
+# Terminal colors
+color0 #45475a
+color1 #f38ba8
+color2 #a6e3a1
+color3 #f9e2af
+color4 #89b4fa
+color5 #f5c2e7
+color6 #94e2d5
+color7 #bac2de
+
+color8 #585b70
+color9 #f38ba8
+color10 #a6e3a1
+color11 #f9e2af
+color12 #89b4fa
+color13 #f5c2e7
+color14 #94e2d5
+color15 #a6adc8
+
+# Extended colors
+color16 #fab387
+color17 #f5e0dc
+
+# ───────────────────────────────────────────────────────────────────
+# MACOS SPECIFIC (Better integration)
+# ───────────────────────────────────────────────────────────────────
+macos_titlebar_color system
+# Use Option as Alt (important for Neovim!)
+macos_option_as_alt yes
+macos_thicken_font 0
+macos_quit_when_last_window_closed yes
+macos_show_window_title_in all
+
+# Hide title bar for more space (optional)
+# hide_window_decorations titlebar-only
+
+# ───────────────────────────────────────────────────────────────────
+# KEYBOARD SHORTCUTS (VS Code inspired + Better defaults)
+# ───────────────────────────────────────────────────────────────────
+
+# Clipboard (VS Code style)
+map cmd+c copy_to_clipboard
+map cmd+v paste_from_clipboard
+map shift+insert paste_from_clipboard
+
+# Tabs (better than default)
+map cmd+t new_tab_with_cwd
+map cmd+w close_tab
+map cmd+1 goto_tab 1
+map cmd+2 goto_tab 2
+map cmd+3 goto_tab 3
+map cmd+4 goto_tab 4
+map cmd+5 goto_tab 5
+map cmd+6 goto_tab 6
+map cmd+7 goto_tab 7
+map cmd+8 goto_tab 8
+map cmd+9 goto_tab 9
+map ctrl+tab next_tab
+map ctrl+shift+tab previous_tab
+map ctrl+. next_tab
+map ctrl+, previous_tab
+
+# Windows/Splits (like tmux/nvim)
+map cmd+shift+enter new_window_with_cwd
+map cmd+shift+w close_window
+map cmd+] next_window
+map cmd+[ previous_window
+
+# Split windows (super useful for development!)
+map cmd+d launch --location=vsplit --cwd=current
+map cmd+shift+d launch --location=hsplit --cwd=current
+
+# Move between splits (like Neovim!)
+map ctrl+h neighboring_window left
+map ctrl+j neighboring_window down
+map ctrl+k neighboring_window up
+map ctrl+l neighboring_window right
+
+# Resize splits
+map cmd+equal change_font_size all +1.0
+map cmd+minus change_font_size all -1.0
+map cmd+0 change_font_size all 0
+
+# Scroll (VS Code-like)
+map cmd+up scroll_to_top
+map cmd+down scroll_to_bottom
+map page_up scroll_page_up
+map page_down scroll_page_down
+
+# Search (like VS Code Cmd+F)
+map cmd+f launch --type=overlay --stdin-source=@screen_scrollback /usr/bin/less +G -R
+
+# Reload config (super handy!)
+map cmd+shift+r load_config_file
+
+# ───────────────────────────────────────────────────────────────────
+# ADVANCED FEATURES
+# ───────────────────────────────────────────────────────────────────
+
+# Better clipboard integration
+clipboard_control write-clipboard write-primary read-clipboard read-primary
+
+# Allow remote control (for automation)
+allow_remote_control yes
+listen_on unix:/tmp/kitty
+
+# Shell integration (better prompt, etc.)
+shell_integration enabled
+
+# Update check
+update_check_interval 24
+
+# Confirm before closing window with running programs
+confirm_os_window_close 1
+
+# ───────────────────────────────────────────────────────────────────
+# SPECIAL KEYS (Make Shift+Enter work in Neovim)
+# ───────────────────────────────────────────────────────────────────
+map shift+enter send_text normal,application \x1b[13;2u
+map ctrl+enter send_text normal,application \x1b[13;5u

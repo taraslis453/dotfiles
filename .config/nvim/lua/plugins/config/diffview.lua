@@ -5,6 +5,7 @@ end
 
 local cb = require("diffview.config").diffview_callback
 local actions = require("diffview.actions")
+
 diffview.setup({
 	diff_binaries = false, -- Show diffs for binaries
 	use_icons = true, -- Requires nvim-web-devicons
@@ -56,5 +57,3 @@ diffview.setup({
 		},
 	},
 })
-vim.api.nvim_set_keymap("n", "<leader>do", ":DiffviewOpen<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dc", ":DiffviewClose<cr>", { noremap = true, silent = true })

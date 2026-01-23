@@ -1,6 +1,6 @@
 local options = {
   backup = false,                         -- creates a backup file
-  clipboard = "unnamed",                  -- allows neovim to access the system clipboard
+  clipboard = "unnamedplus",              -- allows neovim to access the system clipboard (cross-platform)
   cmdheight = 0,
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
   conceallevel = 0,                       -- so that `` is visible in markdown files
@@ -25,6 +25,7 @@ local options = {
   shiftwidth = 2,                         -- the number of spaces inserted for each indentation
   tabstop = 2,                            -- insert 2 spaces for a tab
   cursorline = true,                      -- highlight the current line
+  scrolloff = 999,                        -- keep cursor centered vertically in the window
   number = true,                          -- set numbered lines
   relativenumber = false,                 -- set relative numbered lines
   numberwidth = 2,                        -- set number column width to 2 {default 4}
@@ -33,11 +34,16 @@ local options = {
   linebreak = true,
   breakindent = true,
   guicursor = "i:block",
+  -- Font settings for GUI Neovim (Neovide, etc.)
+  guifont = "SF Mono:h13",
   laststatus = 3,
+  -- Better rendering
+  smoothscroll = true,
   foldenable = true,
   splitkeep = "screen",
   foldlevel = 100,
-  foldmethod = "manual",
+  foldmethod = "expr",                    -- use treesitter-based folding
+  foldexpr = "v:lua.vim.treesitter.foldexpr()", -- treesitter fold expression
   foldcolumn = "1",
   foldlevelstart = 99,
   fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]],

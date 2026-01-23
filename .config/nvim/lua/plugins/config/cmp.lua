@@ -66,9 +66,15 @@ cmp.setup({
 		-- Set `select` to `false` to only confirm explicitly selected items.
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			local copilot_keys = vim.fn["copilot#Accept"]()
-			if copilot_keys ~= "" and type(copilot_keys) == "string" then
-				vim.api.nvim_feedkeys(copilot_keys, "i", true)
+			-- Check for sidekick next edit suggestion first
+			if require("sidekick").nes_jump_or_apply() then
+				return -- jumped or applied
+			end
+			
+			-- Then check for copilot inline suggestion
+			local copilot_suggestion = require("copilot.suggestion")
+			if copilot_suggestion.is_visible() then
+				copilot_suggestion.accept()
 			elseif cmp.visible() then
 				cmp.select_next_item()
 			elseif luasnip.expandable() then
@@ -112,10 +118,10 @@ cmp.setup({
 		end,
 	},
 	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
-		{ name = "path" },
+		{ name = "nvim_lsp", group_index = 2 },
+		{ name = "luasnip", group_index = 2 },
+		{ name = "buffer", group_index = 2 },
+		{ name = "path", group_index = 2 },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,

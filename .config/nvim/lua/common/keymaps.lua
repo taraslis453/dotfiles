@@ -1,61 +1,50 @@
-local opts = { noremap = true, silent = true }
-
--- Shorten function name
-local keymap = vim.api.nvim_set_keymap
-
---Remap , as leader key
-keymap("", ",", "<Nop>", opts)
+-- Remap , as leader key
+vim.keymap.set("", ",", "<Nop>", { desc = "Disable comma" })
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
 -- Normal --
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
-keymap("i", "<C-h>", "<C-\\><C-N><C-w>h", opts)
-keymap("i", "<C-j>", "<C-\\><C-N><C-w>j", opts)
-keymap("i", "<C-k>", "<C-\\><C-N><C-w>k", opts)
-keymap("i", "<C-l>", "<C-\\><C-N><C-w>l", opts)
-keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", opts)
-keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", opts)
-keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", opts)
-keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", opts)
-
-keymap("n", "Y", "yg$", opts)
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Navigate left" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Navigate down" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Navigate up" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Navigate right" })
+vim.keymap.set("i", "<C-h>", "<C-\\><C-N><C-w>h", { desc = "Navigate left (insert mode)" })
+vim.keymap.set("i", "<C-j>", "<C-\\><C-N><C-w>j", { desc = "Navigate down (insert mode)" })
+vim.keymap.set("i", "<C-k>", "<C-\\><C-N><C-w>k", { desc = "Navigate up (insert mode)" })
+vim.keymap.set("i", "<C-l>", "<C-\\><C-N><C-w>l", { desc = "Navigate right (insert mode)" })
+vim.keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h", { desc = "Navigate left (terminal mode)" })
+vim.keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j", { desc = "Navigate down (terminal mode)" })
+vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k", { desc = "Navigate up (terminal mode)" })
+vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l", { desc = "Navigate right (terminal mode)" })
 
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize -6<CR>", opts)
-keymap("n", "<C-Down>", ":resize +6<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize -6<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize +6<CR>", opts)
-keymap("i", "<C-Up>", "<C-\\><C-N> :resize -6<CR>", opts)
-keymap("i", "<C-Down>", "<C-\\><C-N> :resize +6<CR>", opts)
-keymap("i", "<C-Right>", "<C-\\><C-N> :vertical resize -6<CR>", opts)
-keymap("i", "<C-Left>", "<C-\\><C-N> :vertical resize +6<CR>", opts)
-keymap("t", "<C-Up>", "<C-\\><C-N> :resize -6<CR>", opts)
-keymap("t", "<C-Down>", "<C-\\><C-N> :resize +6<CR>", opts)
-keymap("t", "<C-Right>", "<C-\\><C-N> :vertical resize -6<CR>", opts)
-keymap("t", "<C-Left>", "<C-\\><C-N> :vertical resize +6<CR>", opts)
+vim.keymap.set("n", "<C-Up>", ":resize -6<CR>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<C-Down>", ":resize +6<CR>", { desc = "Increase window height" })
+vim.keymap.set("n", "<C-Right>", ":vertical resize -6<CR>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<C-Left>", ":vertical resize +6<CR>", { desc = "Increase window width" })
+vim.keymap.set("i", "<C-Up>", "<C-\\><C-N> :resize -6<CR>", { desc = "Decrease window height (insert mode)" })
+vim.keymap.set("i", "<C-Down>", "<C-\\><C-N> :resize +6<CR>", { desc = "Increase window height (insert mode)" })
+vim.keymap.set("i", "<C-Right>", "<C-\\><C-N> :vertical resize -6<CR>", { desc = "Decrease window width (insert mode)" })
+vim.keymap.set("i", "<C-Left>", "<C-\\><C-N> :vertical resize +6<CR>", { desc = "Increase window width (insert mode)" })
+vim.keymap.set("t", "<C-Up>", "<C-\\><C-N> :resize -6<CR>", { desc = "Decrease window height (terminal mode)" })
+vim.keymap.set("t", "<C-Down>", "<C-\\><C-N> :resize +6<CR>", { desc = "Increase window height (terminal mode)" })
+vim.keymap.set("t", "<C-Right>", "<C-\\><C-N> :vertical resize -6<CR>", { desc = "Decrease window width (terminal mode)" })
+vim.keymap.set("t", "<C-Left>", "<C-\\><C-N> :vertical resize +6<CR>", { desc = "Increase window width (terminal mode)" })
 
-keymap("n", "<C-w>t", ":tab split<CR>", opts)
-keymap("n", "<C-w>s", ":vsplit<CR>", opts)
-keymap("n", "<C-w>i", ":split<CR>", opts)
-
--- insert blank line on enter
-keymap("n", "<CR>", "o<Esc>", opts)
-keymap("n", "<S-CR>", "O<Esc>", opts)
+vim.keymap.set("n", "<C-w>t", ":tab split<CR>", { desc = "Open in new tab" })
+vim.keymap.set("n", "<C-w>s", ":vsplit<CR>", { desc = "Vertical split" })
+vim.keymap.set("n", "<C-w>i", ":split<CR>", { desc = "Horizontal split" })
 
 -- move lines
-keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
-keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
 
-vim.cmd([[nnoremap  \ :noh<return>]])
+vim.keymap.set("n", "\\", ":noh<CR>", { desc = "Clear search highlight" })
 -- Don't yank on visual paste
-keymap("v", "p", '"_dP', opts)
-keymap("n", "]q", ":cn<CR>", opts)
-keymap("n", "[q", ":cp<CR>", opts)
+vim.keymap.set("v", "p", '"_dP', { desc = "Paste without yanking" })
+vim.keymap.set("n", "]q", ":cn<CR>", { desc = "Next quickfix item" })
+vim.keymap.set("n", "[q", ":cp<CR>", { desc = "Previous quickfix item" })
 
 -- remove /n on copy in terminal with C-v
 -- used for copying to clipboard in terminal
@@ -66,18 +55,44 @@ vim.cmd([[
    \\|'<
 ]])
 
-keymap("n", "<space>q", ":q<CR>", opts)
-keymap("n", "<space>Q", ":qa<CR>", opts)
-keymap("n", "<space>w", ":w<CR>", opts)
-keymap("n", "<space>W", ":wa<CR>", opts)
-keymap("n", "<space>z", ":wq<CR>", opts)
+vim.keymap.set("n", "<space>q", ":q<CR>", { desc = "Quit" })
+vim.keymap.set("n", "<space>Q", ":qa<CR>", { desc = "Quit all" })
+vim.keymap.set("n", "<space>w", ":w<CR>", { desc = "Write" })
+vim.keymap.set("n", "<space>W", ":wa<CR>", { desc = "Write all" })
+vim.keymap.set("n", "<space>z", ":wq<CR>", { desc = "Write and quit" })
 
-keymap("n", "<space>f", ":Format<CR>", opts)
+vim.keymap.set("n", "<space>f", ":Format<CR>", { desc = "Format buffer" })
 
 -- exit terminal mode
-vim.cmd([[tnoremap <A-\> <C-\><C-n>]])
+vim.keymap.set("t", "<A-\\>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Disable accidentally pressing ctrl-z and suspending
-keymap("n", "<C-z>", "<Nop>", opts)
+vim.keymap.set("n", "<C-z>", "<Nop>", { desc = "Disable suspend" })
 -- Yank without cursor movement
-keymap("v", "y", "y`]", opts)
+vim.keymap.set("v", "y", "y`]", { desc = "Yank without cursor movement" })
+
+-- Workspace management (like Cursor workspaces)
+vim.keymap.set("n", "<leader>wa", ":lua require('workspaces').add()<CR>", { desc = "Add current dir as workspace" })
+vim.keymap.set("n", "<leader>wr", ":lua require('workspaces').remove()<CR>", { desc = "Remove workspace" })
+vim.keymap.set("n", "<leader>wl", function()
+  local workspaces = require("workspaces")
+  local fzf = require("fzf-lua")
+  local ws_list = workspaces.get()
+  local entries = {}
+  for _, ws in ipairs(ws_list) do
+    table.insert(entries, ws.name .. " : " .. ws.path)
+  end
+  fzf.fzf_exec(entries, {
+    prompt = "Workspaces> ",
+    actions = {
+      ["default"] = function(selected)
+        if selected and selected[1] then
+          local name = selected[1]:match("^(.-)%s*:")
+          workspaces.open(name)
+        end
+      end
+    }
+  })
+end, { desc = "List/switch workspaces" })
+vim.keymap.set("n", "<leader>wo", ":lua require('workspaces').open()<CR>", { desc = "Open workspace" })
+

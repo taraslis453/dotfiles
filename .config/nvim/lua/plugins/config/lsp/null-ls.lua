@@ -1,33 +1,37 @@
+-- none-ls is the community-maintained fork of the archived null-ls
 local null_ls_status_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_status_ok then
 	return
 end
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+-- https://github.com/nvimtools/none-ls.nvim
 local formatting = null_ls.builtins.formatting
 local code_actions = null_ls.builtins.code_actions
-local diagnostics = null_ls.builtins.diagnostics
+
+-- Create autocmd group for format on save
+local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+
 null_ls.setup({
 	sources = {
 		formatting.prettierd,
 		formatting.stylua,
-		formatting.goimports,
-		formatting.gofmt,
 		formatting.stylelint.with({
 			filetypes = { "typescript", "typescriptreact", "javascriptreact" },
 		}),
-		diagnostics.buf,
 		code_actions.gomodifytags,
-		null_ls.builtins.diagnostics.buf,
 	},
-	-- format on save
+	-- format on save with timeout
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = "bufcheck",
+				group = augroup,
 				buffer = bufnr,
 				callback = function()
-					vim.lsp.buf.format()
+					vim.lsp.buf.format({
+						timeout_ms = 2000,
+						bufnr = bufnr,
+					})
 				end,
 			})
 		end

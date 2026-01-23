@@ -71,18 +71,6 @@ local Filetype = vim.api.nvim_create_augroup("filetype", { clear = true })
 local filetype_dict = {
   FileType = {
     -- {
-    -- 	group = Filetype,
-    -- 	pattern = { "sql", "mysql", "plsql" },
-    -- 	desc = "Use dadbod-completion source in nvim-cmp.",
-    -- 	callback = function()
-    -- 		local cmp_status_ok, cmp = pcall(require, "cmp")
-    -- 		if not cmp_status_ok then
-    -- 			return
-    -- 		end
-    -- 		cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
-    -- 		vim.g.vim_dadbod_completion_mark = "[db]"
-    -- 	end,
-    -- },
     {
       group = Filetype,
       pattern = { "gitcommit", "gitrebase" },
@@ -107,16 +95,28 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   command = "setlocal nofoldenable",
 })
 
-local lightbulb_augroup = vim.api.nvim_create_augroup("lightbulb_augroup", { clear = true })
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  group = lightbulb_augroup,
-  pattern = "*",
-  desc = "Show a lightbulb if a code action is available at the current cursor position.",
-  callback = function()
-    local status_ok, alpha = pcall(require, "nvim-lightbulb")
-    if not status_ok then
-      return
-    end
-    require("nvim-lightbulb").update_lightbulb()
-  end,
+-------------------------------------------------------------------------------
+------ CHANGE TERMINAL TITLE TO GIT BRANCH
+-------------------------------------------------------------------------------
+local terminal_title = vim.api.nvim_create_augroup("TerminalTitle", { clear = true })
+
+-- Function to restore terminal title to git branch name
+local function restore_terminal_title()
+  -- Get git branch
+  local handle = io.popen("git branch --show-current 2>/dev/null")
+  local branch = handle:read("*a"):gsub("\n", "")
+  handle:close()
+  
+  if branch ~= "" then
+    -- Write escape sequence directly to terminal
+    io.write(string.format("\027]0;%s\007", branch))
+    io.flush()
+  end
+end
+
+-- Restore title when entering neovim, leaving, or gaining focus
+vim.api.nvim_create_autocmd({ "VimEnter", "VimLeave", "FocusLost", "FocusGained" }, {
+  group = terminal_title,
+  desc = "Restore terminal title to git branch",
+  callback = restore_terminal_title,
 })

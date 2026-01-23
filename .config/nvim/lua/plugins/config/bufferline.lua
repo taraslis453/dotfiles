@@ -11,7 +11,8 @@ bufferline.setup({
 		left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
 		middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
 		indicator = {
-			style = "underline",
+			icon = "▎",
+			style = "icon",
 		},
 		buffer_close_icon = "",
 		modified_icon = "●",
@@ -23,24 +24,27 @@ bufferline.setup({
 		tab_size = 21,
 		diagnostics = "nvim_lsp",
 		diagnostics_update_in_insert = false,
+		diagnostics_indicator = function(count, level)
+			local icon = level:match("error") and " " or " "
+			return " " .. icon .. count
+		end,
 		offsets = {
 			{
 				filetype = "NvimTree",
-				text = "Explorer",
-				highlight = "Directory",
-				text_align = "center",
-				padding = 1,
+				text = " File Explorer",
+				text_align = "left",
+				separator = true,
 			},
 			{
 				filetype = "DiffviewFiles",
-				text = "Diff View",
-				highlight = "Directory",
-				text_align = "center",
-				padding = 1,
+				text = " Diff View",
+				text_align = "left",
+				separator = true,
 			},
 		},
+		color_icons = true,
 		show_buffer_icons = true,
-		show_buffer_close_icons = false,
+		show_buffer_close_icons = true,
 		show_close_icon = false,
 		show_tab_indicators = true,
 		persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
@@ -142,15 +146,12 @@ bufferline.setup({
 	},
 })
 
-local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "<A-,>", ":BufferLineCyclePrev<CR>", opts)
-vim.api.nvim_set_keymap("n", "<A-.>", ":BufferLineCycleNext<CR>", opts)
-vim.api.nvim_set_keymap("n", "<A->>", ":BufferLineMoveNext<CR>", opts)
-vim.api.nvim_set_keymap("n", "<A-<>", ":BufferLineMovePrev<CR>", opts)
-vim.api.nvim_set_keymap("n", "<space>bl", ":BufferLineCloseLeft<CR>", opts)
-vim.api.nvim_set_keymap("n", "<space>br", ":BufferLineCloseRight<CR>", opts)
-
--- vim-bye plugin
-vim.api.nvim_set_keymap("n", "<A-c>", ":Bdelete<CR>", opts)
-
-vim.api.nvim_set_keymap("n", "<C-s>", ":BufferLinePick<CR>", opts)
+-- Buffer navigation keymaps (modern API)
+vim.keymap.set("n", "<A-,>", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<A-.>", ":BufferLineCycleNext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<A->>", ":BufferLineMoveNext<CR>", { desc = "Move buffer right" })
+vim.keymap.set("n", "<A-<>", ":BufferLineMovePrev<CR>", { desc = "Move buffer left" })
+vim.keymap.set("n", "<space>bl", ":BufferLineCloseLeft<CR>", { desc = "Close buffers to the left" })
+vim.keymap.set("n", "<space>br", ":BufferLineCloseRight<CR>", { desc = "Close buffers to the right" })
+vim.keymap.set("n", "<A-c>", ":Bdelete<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<C-s>", ":BufferLinePick<CR>", { desc = "Pick buffer" })

@@ -6,8 +6,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
-
+# Set Oh My Zsh theme conditionally
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  ZSH_THEME=""  # Disable Powerlevel10k for Cursor
+else
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+fi
 
 
 
@@ -15,15 +19,45 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:$HOME/go/bin
 export GOPATH=$HOME/usr/local/go/bin/go
+export PATH=$PATH:/Users/taraslysyi/dev/flutter/bin
+
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-vi-mode)
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# Performance optimizations
+ZSH_DISABLE_COMPFIX=true  # Skip compaudit security check
+DISABLE_UPDATE_PROMPT=true  # Don't check for updates on every shell start
+DISABLE_AUTO_UPDATE=true
 
 source $ZSH/oh-my-zsh.sh
 
 . $(brew --prefix)/etc/profile.d/z.sh
 export KEYTIMEOUT=1
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#959695"
+# Catppuccin Mocha colors for zsh-autosuggestions
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#585b70"
+
+# Catppuccin Mocha colors for zsh-syntax-highlighting
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[default]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#f38ba8'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#cba6f7'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[function]='fg=#89b4fa'
+ZSH_HIGHLIGHT_STYLES[command]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=#a6e3a1,italic'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#f5c2e7'
+ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=#a6e3a1'
+ZSH_HIGHLIGHT_STYLES[path]='fg=#89b4fa,underline'
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#cba6f7'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#fab387'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#fab387'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#cba6f7'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#f9e2af'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#f9e2af'
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[assign]='fg=#cdd6f4'
 
 HISTSIZE=10000
 SAVEHIST=10000
@@ -41,30 +75,64 @@ alias e='exit'
 alias n='nvim'
 alias v='vim'
 alias ni='cd && .config/nvim && n'
-alias ls='exa'
+alias ls='eza --icons --color=always'
+alias ll='eza -l --icons --color=always'
+alias la='eza -la --icons --color=always'
+# Lazy load nvm for faster startup
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm() {
+  unset -f nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
+
+# Auto-load nvm when entering directory with .nvmrc
+autoload -U add-zsh-hook
+load-nvmrc() {
+  if [[ -f .nvmrc && -s "$NVM_DIR/nvm.sh" ]]; then
+    nvm use
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
 
 export LANG="en_US.UTF-8"
 
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Use a minimal prompt in Cursor to avoid command detection issues
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  PROMPT='%n@%m:%~%# '
+  RPROMPT=''
+else
+  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+fi
 
 
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
-ulimit -n 1024
+et() {
+    encore test -run "$1" -v
+}
+
+ulimit -n 10240
 
 
 
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/taraslysyi/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/taraslysyi/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/taraslysyi/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/taraslysyi/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 # git account switch
 source $HOME/.git-acc
+
+# Lazy-load Google Cloud SDK for faster startup
+gcloud() {
+  unset -f gcloud
+  if [ -f '/Users/taraslysyi/google-cloud-sdk/path.zsh.inc' ]; then 
+    . '/Users/taraslysyi/google-cloud-sdk/path.zsh.inc'
+  fi
+  if [ -f '/Users/taraslysyi/google-cloud-sdk/completion.zsh.inc' ]; then 
+    . '/Users/taraslysyi/google-cloud-sdk/completion.zsh.inc'
+  fi
+  gcloud "$@"
+}
+export PATH="/opt/homebrew/opt/go@1.22/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+

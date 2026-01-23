@@ -1,157 +1,132 @@
 local M = {}
 
 M.setup = function()
-	local signs = {
-		{ name = "DiagnosticSignError", text = "" },
-		{ name = "DiagnosticSignWarn", text = "" },
-		{ name = "DiagnosticSignHint", text = "" },
-		{ name = "DiagnosticSignInfo", text = "" },
-	}
+  local config = {
+    virtual_text = true,
+    -- show signs
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = "",
+        [vim.diagnostic.severity.WARN] = "",
+        [vim.diagnostic.severity.HINT] = "",
+        [vim.diagnostic.severity.INFO] = "",
+      },
+    },
+    update_in_insert = false,
+    underline = true,
+    severity_sort = true,
+    float = {
+      focusable = true,
+      style = "minimal",
+      border = "rounded",
+      source = "always",
+      header = "",
+      prefix = "",
+    },
+  }
 
-	for _, sign in ipairs(signs) do
-		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-	end
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "rounded",
+    -- Enable syntax highlighting in hover window
+    stylize_markdown = true,
+    -- Focus the hover window to enable scrolling
+    focusable = true,
+    -- Set max width/height for better readability
+    max_width = 80,
+    max_height = 30,
+  })
 
-	local config = {
-		virtual_text = true,
-		-- show signs
-		signs = {
-			active = signs,
-		},
-		update_in_insert = false,
-		underline = true,
-		severity_sort = true,
-		float = {
-			focusable = true,
-			style = "minimal",
-			border = "rounded",
-			source = "always",
-			header = "",
-			prefix = "",
-		},
-	}
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = "rounded",
+  })
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
-	})
-
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
-	})
-
-	vim.diagnostic.config(config)
+  vim.diagnostic.config(config)
+  
+  -- Disable default global LSP keymaps that conflict with custom mappings
+  -- grr conflicts with custom gr mapping in fzf.lua
+  pcall(vim.keymap.del, 'n', 'grr')
+  pcall(vim.keymap.del, 'n', 'grn')
+  pcall(vim.keymap.del, 'n', 'gra')
+  pcall(vim.keymap.del, 'v', 'gra')
+  pcall(vim.keymap.del, 'n', 'gri')
+  pcall(vim.keymap.del, 'n', 'grt')
+  
+  -- Enable treesitter highlighting in LSP hover windows
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+      vim.treesitter.start()
+    end,
+  })
 end
 
-local function lsp_highlight_document(client, bufnr)
-	if client.server_capabilities.documentHighlightProvider then
-		vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
-		vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "lsp_document_highlight" })
-		vim.api.nvim_create_autocmd("CursorHold", {
-			callback = vim.lsp.buf.document_highlight,
-			buffer = bufnr,
-			group = "lsp_document_highlight",
-			desc = "Document Highlight",
-		})
-		vim.api.nvim_create_autocmd("CursorMoved", {
-			callback = vim.lsp.buf.clear_references,
-			buffer = bufnr,
-			group = "lsp_document_highlight",
-			desc = "Clear All the References",
-		})
-	end
+M.on_init = function(client, _)
+  -- Disable semantic tokens to prevent them from overriding treesitter highlighting
+  -- Combined with vim.hl.priorities.semantic_tokens = 95 in init.lua, this ensures
+  -- treesitter highlighting always takes precedence
+  if client.server_capabilities.semanticTokensProvider then
+    client.server_capabilities.semanticTokensProvider = nil
+  end
 end
 
 local function lsp_keymaps(bufnr)
-	local opts = { noremap = true, silent = true }
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "[g", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "]g", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "v", "ga", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "R", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+  local opts = { buffer = bufnr }
+  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, vim.tbl_extend("force", opts, { desc = "Go to declaration" }))
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover documentation" }))
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, vim.tbl_extend("force", opts, { desc = "Go to implementation" }))
+  vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature help" }))
+  vim.keymap.set("n", "gl", vim.diagnostic.open_float, vim.tbl_extend("force", opts, { desc = "Open diagnostic float" }))
+  vim.keymap.set("n", "[g", function()
+    vim.diagnostic.goto_prev({ border = "rounded" })
+  end, vim.tbl_extend("force", opts, { desc = "Previous diagnostic" }))
+  vim.keymap.set("n", "]g", function()
+    vim.diagnostic.goto_next({ border = "rounded" })
+  end, vim.tbl_extend("force", opts, { desc = "Next diagnostic" }))
+  vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, vim.tbl_extend("force", opts, { desc = "Diagnostic loclist" }))
+  vim.keymap.set("n", "ga", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code action" }))
+  vim.keymap.set("v", "ga", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code action (range)" }))
+  vim.keymap.set("n", "R", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename symbol" }))
+  
+  -- Toggle inlay hints (Neovim 0.10+)
+  if vim.lsp.inlay_hint then
+    vim.keymap.set("n", "<leader>h", function()
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+    end, vim.tbl_extend("force", opts, { desc = "Toggle inlay hints" }))
+  end
 
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({async = true})' ]])
+  vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format({async = true})' ]])
 end
 
 local navic = require("nvim-navic")
 
 M.on_attach = function(client, bufnr)
-	if client.name == "tsserver" then
-		client.server_capabilities.documentFormattingProvider = false
+  if client.name == "lua_ls" then
+    client.server_capabilities.documentFormattingProvider = false
+  end
+  if client.name == "stylelint_lsp" then
+    client.server_capabilities.documentFormattingProvider = false
+  end
+  -- gopls formatting enabled (gofumpt + organize imports)
 
-		local ts_utils = require("nvim-lsp-ts-utils")
+  -- format on save
+  if client:supports_method("textDocument/formatting") then
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
+  end
+  if client:supports_method("textDocument/documentSymbol") then
+    navic.attach(client, bufnr)
+  end
 
-		-- defaults
-		ts_utils.setup({
-			debug = false,
-			disable_commands = false,
-			enable_import_on_completion = true,
-			-- import all
-			import_all_timeout = 5000, -- ms
-			import_all_priorities = nil,
-			import_all_scan_buffers = 100,
-			import_all_select_source = false,
-			-- if false will avoid organizing imports
-			always_organize_imports = false,
-			-- filter diagnostics
-			filter_out_diagnostics_by_severity = {},
-			filter_out_diagnostics_by_code = {},
-			-- inlay hints
-			auto_inlay_hints = false,
-			-- update imports on file move
-			update_imports_on_move = true,
-			require_confirmation_on_move = false,
-			watch_dir = nil,
-		})
-
-		-- required to fix code action ranges and filter diagnostics
-		ts_utils.setup_client(client)
-	end
-	if client.name == "sumneko_lua" then
-		client.server_capabilities.documentFormattingProvider = false
-	end
-	if client.name == "stylelint_lsp" then
-		client.server_capabilities.documentFormattingProvider = false
-	end
-	if client.name == "gopls" then
-		client.server_capabilities.documentFormattingProvider = false
-	end
-	if client.name == "eslint" then
-		vim.cmd("autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll")
-	end
-
-	-- format on save
-	if client.supports_method("textDocument/formatting") then
-		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
-	end
-	if client.supports_method("textDocument/documentSymbol") then
-		navic.attach(client, bufnr)
-	end
-
-	--[[ if client.supports_method("textDocument/signatureHelp") then ]]
-	--[[ 	vim.api.nvim_create_autocmd({ "CursorHoldI" }, { ]]
-	--[[ 		pattern = "<buffer>", ]]
-	--[[ 		group = vim.api.nvim_create_augroup("LspSignature", {}), ]]
-	--[[ 		callback = function() ]]
-	--[[ 			vim.lsp.buf.signature_help() ]]
-	--[[ 		end, ]]
-	--[[ 	}) ]]
-	--[[ end ]]
-	lsp_keymaps(bufnr)
-	lsp_highlight_document(client, bufnr)
+  lsp_keymaps(bufnr)
+  
+  -- Inlay hints are disabled by default, use <leader>h to toggle them on/off
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_ok then
-	return
+  return
 end
 
 M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)

@@ -1,0 +1,29 @@
+# lazy.nvim plugin directory (plugins are installed here at runtime)
+# Note: lazy-lock.json should be committed to track exact plugin versions
+
+# Plugin directories
+plugin/
+
+# Backup and swap files
+*.swp
+*.swo
+*.tmp
+*~
+
+# Undo history
+undodir/
+*.un~
+
+# Session files
+session/
+*.vim
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Debugging
+.luarc.json
+
+# Telescope history
+*.json.bak

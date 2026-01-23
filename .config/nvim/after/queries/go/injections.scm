@@ -1,98 +1,83 @@
 ; extends
 
-; inject sql in single line strings
-; e.g. db.GetContext(ctx, "SELECT * FROM users WHERE name = 'John'")
-
-((call_expression
-  (selector_expression
-    field: (field_identifier) @_field)
-  (argument_list
-    (interpreted_string_literal) @sql))
-  (#any-of? @_field "Exec" "GetContext" "ExecContext" "SelectContext" "In"
-				            "RebindNamed" "Rebind" "Query" "QueryRow" "QueryRowxContext" "NamedExec" "MustExec" "Get" "Queryx")
-  (#offset! @sql 0 1 0 -1))
-
-; still buggy for nvim 0.10
-((call_expression
-  (selector_expression
-    field: (field_identifier) @_field (#any-of? @_field "Exec" "GetContext" "ExecContext" "SelectContext" "In" "RebindNamed" "Rebind" "Query" "QueryRow" "QueryRowxContext" "NamedExec" "MustExec" "Get" "Queryx" "Raw"))
-  (argument_list
-    (interpreted_string_literal) @injection.content))
-  (#offset! @injection.content 0 1 0 -1)
+(call_expression
+  function: (selector_expression
+    field: (field_identifier) @_method)
+  arguments: (argument_list
+    .
+    [
+      (raw_string_literal
+        (raw_string_literal_content) @injection.content)
+      (interpreted_string_literal
+        (interpreted_string_literal_content) @injection.content)
+    ])
+  (#any-of? @_method 
+    "Exec" "ExecContext" "MustExec" "NamedExec"
+    "Query" "QueryContext" "Queryx" "QueryxContext" "QueryRow" "QueryRowContext" "QueryRowx" "QueryRowxContext"
+    "Get" "GetContext" "Select" "SelectContext"
+    "Rebind" "RebindNamed" "In" "Raw")
   (#set! injection.language "sql"))
 
-; neovim nightly 0.10
+(call_expression
+  function: (selector_expression
+    field: (field_identifier) @_method)
+  arguments: (argument_list
+    (_)
+    .
+    [
+      (raw_string_literal
+        (raw_string_literal_content) @injection.content)
+      (interpreted_string_literal
+        (interpreted_string_literal_content) @injection.content)
+    ])
+  (#any-of? @_method 
+    "Exec" "ExecContext" "MustExec" "NamedExec"
+    "Query" "QueryContext" "Queryx" "QueryxContext" "QueryRow" "QueryRowContext" "QueryRowx" "QueryRowxContext"
+    "Get" "GetContext" "Select" "SelectContext"
+    "Rebind" "RebindNamed" "In" "Raw")
+  (#set! injection.language "sql"))
+
 ([
-  (interpreted_string_literal)
-  (raw_string_literal)
-  ] @injection.content
- (#match? @injection.content "(SELECT|select|INSERT|insert|UPDATE|update|DELETE|delete).+(FROM|from|INTO|into|VALUES|values|SET|set).*(WHERE|where|GROUP BY|group by)?")
-(#set! injection.language "sql"))
-
-; a general query injection
-([
-   (interpreted_string_literal)
-   (raw_string_literal)
- ] @sql
- (#match? @sql "(SELECT|select|INSERT|insert|UPDATE|update|DELETE|delete).+(FROM|from|INTO|into|VALUES|values|SET|set).*(WHERE|where|GROUP BY|group by)?")
- (#offset! @sql 0 1 0 -1))
-
-; ----------------------------------------------------------------
-; fallback keyword and comment based injection
+  (raw_string_literal
+    (raw_string_literal_content) @injection.content)
+  (interpreted_string_literal
+    (interpreted_string_literal_content) @injection.content)
+]
+  (#match? @injection.content "(SELECT|select|INSERT|insert|UPDATE|update|DELETE|delete).+(FROM|from|INTO|into|VALUES|values|SET|set)")
+  (#set! injection.language "sql"))
 
 ([
-  (interpreted_string_literal)
-  (raw_string_literal)
- ] @sql
- (#contains? @sql "-- sql" "--sql" "ADD CONSTRAINT" "ALTER TABLE" "ALTER COLUMN"
-                  "DATABASE" "FOREIGN KEY" "GROUP BY" "HAVING" "CREATE INDEX" "INSERT INTO"
-                  "NOT NULL" "PRIMARY KEY" "UPDATE SET" "TRUNCATE TABLE" "LEFT JOIN" "add constraint" "alter table" "alter column" "database" "foreign key" "group by" "having" "create index" "insert into"
-                  "not null" "primary key" "update set" "truncate table" "left join")
- (#offset! @sql 0 1 0 -1))
-
-; nvim 0.10
-([
-  (interpreted_string_literal)
-  (raw_string_literal)
- ] @injection.content
- (#contains? @injection.content "-- sql" "--sql" "ADD CONSTRAINT" "ALTER TABLE" "ALTER COLUMN"
-                  "DATABASE" "FOREIGN KEY" "GROUP BY" "HAVING" "CREATE INDEX" "INSERT INTO"
-                  "NOT NULL" "PRIMARY KEY" "UPDATE SET" "TRUNCATE TABLE" "LEFT JOIN" "add constraint" "alter table" "alter column" "database" "foreign key" "group by" "having" "create index" "insert into"
-                  "not null" "primary key" "update set" "truncate table" "left join")
- (#offset! @injection.content 0 1 0 -1)
- (#set! injection.language "sql"))
-
-; json
-
-((const_spec
-  name: (identifier) @_const
-  value: (expression_list (raw_string_literal) @json))
- (#lua-match? @_const ".*[J|j]son.*"))
-
-; jsonStr := `{"foo": "bar"}`
-
-((short_var_declaration
-    left: (expression_list
-            (identifier) @_var)
-    right: (expression_list
-             (raw_string_literal) @json))
-  (#lua-match? @_var ".*[J|j]son.*")
-  (#offset! @json 0 1 0 -1))
-
-; nvim 0.10
+  (raw_string_literal
+    (raw_string_literal_content) @injection.content)
+  (interpreted_string_literal
+    (interpreted_string_literal_content) @injection.content)
+]
+  (#contains? @injection.content "-- sql" "--sql" 
+    "ADD CONSTRAINT" "ALTER TABLE" "ALTER COLUMN" "CREATE INDEX" "CREATE TABLE"
+    "DATABASE" "FOREIGN KEY" "GROUP BY" "HAVING" "INSERT INTO" "INNER JOIN" "LEFT JOIN" "RIGHT JOIN"
+    "NOT NULL" "PRIMARY KEY" "UPDATE SET" "TRUNCATE TABLE" 
+    "add constraint" "alter table" "alter column" "create index" "create table"
+    "database" "foreign key" "group by" "having" "insert into" "inner join" "left join" "right join"
+    "not null" "primary key" "update set" "truncate table")
+  (#set! injection.language "sql"))
 
 (const_spec
-  name: ((identifier) @_const(#lua-match? @_const ".*[J|j]son.*"))
-  value: (expression_list (raw_string_literal) @injection.content
-   (#set! injection.language "json")))
-
-(short_var_declaration
-    left: (expression_list (identifier) @_var (#lua-match? @_var ".*[J|j]son.*"))
-    right: (expression_list (raw_string_literal) @injection.content)
-  (#offset! @injection.content 0 1 0 -1)
+  name: ((identifier) @_const (#lua-match? @_const ".*[J|j]son.*"))
+  value: (expression_list
+    (raw_string_literal
+      (raw_string_literal_content) @injection.content))
   (#set! injection.language "json"))
 
 (var_spec
-  name: ((identifier) @_const(#lua-match? @_const ".*[J|j]son.*"))
-  value: (expression_list (raw_string_literal) @injection.content
-   (#set! injection.language "json")))
+  name: ((identifier) @_var (#lua-match? @_var ".*[J|j]son.*"))
+  value: (expression_list
+    (raw_string_literal
+      (raw_string_literal_content) @injection.content))
+  (#set! injection.language "json"))
+
+(short_var_declaration
+  left: (expression_list (identifier) @_var (#lua-match? @_var ".*[J|j]son.*"))
+  right: (expression_list
+    (raw_string_literal
+      (raw_string_literal_content) @injection.content))
+  (#set! injection.language "json"))
