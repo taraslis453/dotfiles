@@ -1,0 +1,60 @@
+theme "catppuccin-mocha"
+
+default_layout "compact"
+pane_frames false
+simplified_ui true
+hide_session_name true
+
+on_force_close "quit"
+disable_session_metadata true
+auto_set_tab_name true
+session_name "main"
+attach_to_session true
+
+show_startup_tips false
+show_release_notes false
+
+keybinds clear-defaults=true {
+    shared_except "locked" {
+        bind "Ctrl ." { GoToNextTab; }
+        bind "Ctrl ," { GoToPreviousTab; }
+        bind "Alt t" { NewTab; }
+        bind "Alt w" { CloseTab; }
+        bind "Alt r" { SwitchToMode "RenameTab"; TabNameInput 0; }
+
+        // Move tabs left/right (Cmd+Shift+Arrow from Alacritty, same as Kitty)
+        bind "Alt Left" { MoveTab "Left"; }
+        bind "Alt Right" { MoveTab "Right"; }
+
+        // Switch to specific tabs (Command+1-9 from Alacritty)
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
+    }
+    renametab {
+        bind "Enter" { SwitchToMode "Normal"; }
+        bind "Esc" { UndoRenameTab; SwitchToMode "Normal"; }
+    }
+}
+
+themes {
+    catppuccin-mocha {
+        bg "#313244"
+        fg "#cdd6f4"
+        red "#f38ba8"
+        green "#a6e3a1"
+        blue "#89b4fa"
+        yellow "#f9e2af"
+        magenta "#f5c2e7"
+        orange "#fab387"
+        cyan "#94e2d5"
+        black "#1e1e1e"
+        white "#cdd6f4"
+    }
+}

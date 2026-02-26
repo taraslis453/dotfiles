@@ -1,0 +1,163 @@
+[general]
+live_config_reload = true
+
+[terminal]
+shell = { program = "/bin/zsh", args = ["-l", "-c", "/opt/homebrew/bin/zellij"] }
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = { x = 4, y = 4 }
+decorations = "Buttonless"
+option_as_alt = "Both"
+startup_mode = "Windowed"
+
+[scrolling]
+history = 10000
+multiplier = 5
+
+[font]
+size = 13.0
+builtin_box_drawing = false
+offset = { x = 0, y = 2 }
+glyph_offset = { x = 0, y = 0 }
+
+[font.normal]
+family = "FiraCode Nerd Font Mono"
+style = "Regular"
+
+[font.bold]
+family = "FiraCode Nerd Font Mono"
+style = "Bold"
+
+[font.italic]
+family = "FiraCode Nerd Font Mono"
+style = "Light"
+
+[font.bold_italic]
+family = "FiraCode Nerd Font Mono"
+style = "SemiBold"
+
+[cursor]
+style = { shape = "Block", blinking = "Never" }
+
+[mouse]
+hide_when_typing = true
+
+[bell]
+duration = 0
+
+[selection]
+save_to_clipboard = true
+
+# Catppuccin Mocha
+[colors.primary]
+background = "#1e1e1e"
+foreground = "#cdd6f4"
+
+[colors.cursor]
+cursor = "#f5e0dc"
+text = "#1e1e1e"
+
+[colors.selection]
+background = "#585b70"
+text = "#cdd6f4"
+
+[colors.normal]
+black   = "#45475a"
+red     = "#f38ba8"
+green   = "#a6e3a1"
+yellow  = "#f9e2af"
+blue    = "#89b4fa"
+magenta = "#f5c2e7"
+cyan    = "#94e2d5"
+white   = "#bac2de"
+
+[colors.bright]
+black   = "#585b70"
+red     = "#f38ba8"
+green   = "#a6e3a1"
+yellow  = "#f9e2af"
+blue    = "#89b4fa"
+magenta = "#f5c2e7"
+cyan    = "#94e2d5"
+white   = "#a6adc8"
+
+# Keybindings — Cmd keys translated to Alt sequences for Zellij
+[[keyboard.bindings]]
+key = "T"
+mods = "Command|Shift"
+chars = "\u001bt"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Command|Shift"
+chars = "\u001bw"
+
+[[keyboard.bindings]]
+key = "R"
+mods = "Command|Shift"
+chars = "\u001br"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001b[13;2u"
+
+# Move tabs left/right in Zellij (same as Kitty: Cmd+Shift+Arrow)
+[[keyboard.bindings]]
+key = "Left"
+mods = "Command|Shift"
+chars = "\u001b\u001b[D"
+
+[[keyboard.bindings]]
+key = "Right"
+mods = "Command|Shift"
+chars = "\u001b\u001b[C"
+
+# Switch between tabs with Command+number
+[[keyboard.bindings]]
+key = "Key1"
+mods = "Command"
+chars = "\u001b1"
+
+[[keyboard.bindings]]
+key = "Key2"
+mods = "Command"
+chars = "\u001b2"
+
+[[keyboard.bindings]]
+key = "Key3"
+mods = "Command"
+chars = "\u001b3"
+
+[[keyboard.bindings]]
+key = "Key4"
+mods = "Command"
+chars = "\u001b4"
+
+[[keyboard.bindings]]
+key = "Key5"
+mods = "Command"
+chars = "\u001b5"
+
+[[keyboard.bindings]]
+key = "Key6"
+mods = "Command"
+chars = "\u001b6"
+
+[[keyboard.bindings]]
+key = "Key7"
+mods = "Command"
+chars = "\u001b7"
+
+[[keyboard.bindings]]
+key = "Key8"
+mods = "Command"
+chars = "\u001b8"
+
+[[keyboard.bindings]]
+key = "Key9"
+mods = "Command"
+chars = "\u001b9"
