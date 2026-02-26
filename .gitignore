@@ -1,0 +1,4 @@
+.DS_Store
+.p10k.zsh
+.config/kitty/kitty.conf.backup
+.config/kitty/kitty.conf.improved
