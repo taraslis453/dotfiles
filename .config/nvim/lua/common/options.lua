@@ -47,6 +47,7 @@ local options = {
   foldcolumn = "1",
   foldlevelstart = 99,
   fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]],
+  autoread = true,
 }
 
 vim.opt.shortmess:append("c")

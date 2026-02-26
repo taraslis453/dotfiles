@@ -107,12 +107,7 @@ M.on_attach = function(client, bufnr)
   if client.name == "stylelint_lsp" then
     client.server_capabilities.documentFormattingProvider = false
   end
-  -- gopls formatting enabled (gofumpt + organize imports)
-
-  -- format on save
-  if client:supports_method("textDocument/formatting") then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
-  end
+  -- Formatting handled by conform.nvim (see plugins/config/conform.lua)
   if client:supports_method("textDocument/documentSymbol") then
     navic.attach(client, bufnr)
   end

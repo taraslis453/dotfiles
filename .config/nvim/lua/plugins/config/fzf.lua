@@ -101,7 +101,7 @@ vim.keymap.set("n", "<leader>G", function()
 end, { desc = "Grep Go files only" })
 
 -- ,r - Recent files (oldfiles)
-vim.keymap.set("n", "<leader>r", "<cmd>FzfLua oldfiles<cr>", vim.tbl_extend("force", opts, { desc = "Recent files" }))
+vim.keymap.set("n", "<leader>r", "<cmd>FzfLua history<cr>", vim.tbl_extend("force", opts, { desc = "Recent files" }))
 
 -- ,v - Buffers
 vim.keymap.set("n", "<leader>v", "<cmd>FzfLua buffers<cr>", vim.tbl_extend("force", opts, { desc = "Buffers" }))

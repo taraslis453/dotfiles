@@ -233,6 +233,16 @@ require("lazy").setup({
     end,
   },
 
+  -- Formatting
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    cmd = "ConformInfo",
+    config = function()
+      require("plugins.config.conform")
+    end,
+  },
+
   -- LSP
   {
     "neovim/nvim-lspconfig",
@@ -349,6 +359,9 @@ require("lazy").setup({
         win = {
           layout = "right",
         },
+        tools = {
+          cursor = { cmd = { "cursor", "agent", "--force", "--approve-mcps" }, url = "https://cursor.com/cli" },
+        },
       },
     },
     keys = {
@@ -416,6 +429,7 @@ require("lazy").setup({
     },
   },
 
+
   -- Git
   {
     "lewis6991/gitsigns.nvim",
@@ -439,18 +453,82 @@ require("lazy").setup({
     keys = {
       { "<leader>wt", desc = "List/switch worktrees" },
       { "<leader>wT", desc = "Create new worktree" },
+      { "<leader>wd", desc = "Delete worktree" },
     },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("git-worktree").setup()
-      
-      -- List/switch worktrees
+      local worktree = require("git-worktree")
+      local Job = require("plenary.job")
+
+      local function get_repo_root()
+        local result = {}
+        Job:new({
+          command = "git",
+          args = { "rev-parse", "--show-toplevel" },
+          on_exit = function(j, return_val)
+            if return_val == 0 then
+              result = j:result()
+            end
+          end,
+        }):sync()
+        return result[1]
+      end
+
+      local function get_worktrees_base_path()
+        local repo_root = get_repo_root()
+        if not repo_root then return nil end
+        local parent = vim.fn.fnamemodify(repo_root, ":h")
+        return parent
+      end
+
+      local function sanitize_branch_name(branch)
+        return branch:gsub("/", "-")
+      end
+
+      local function input_in_center(prompt, callback, default_value)
+        local buf = vim.api.nvim_create_buf(false, true)
+        local width = 60
+        local height = 1
+        local row = math.floor((vim.o.lines - height) / 2)
+        local col = math.floor((vim.o.columns - width) / 2)
+
+        local win = vim.api.nvim_open_win(buf, true, {
+          relative = "editor",
+          width = width,
+          height = height,
+          row = row,
+          col = col,
+          style = "minimal",
+          border = "rounded",
+          title = prompt,
+          title_pos = "center",
+        })
+
+        if default_value then
+          vim.api.nvim_buf_set_lines(buf, 0, -1, false, { default_value })
+        end
+
+        vim.cmd("startinsert!")
+
+        vim.keymap.set("i", "<CR>", function()
+          local input = vim.api.nvim_buf_get_lines(buf, 0, -1, false)[1] or ""
+          vim.api.nvim_win_close(win, true)
+          vim.cmd("stopinsert")
+          callback(input)
+        end, { buffer = buf })
+
+        vim.keymap.set({ "i", "n" }, "<Esc>", function()
+          vim.api.nvim_win_close(win, true)
+          vim.cmd("stopinsert")
+          callback(nil)
+        end, { buffer = buf })
+      end
+
+      worktree.setup()
+
       vim.keymap.set("n", "<leader>wt", function()
         local fzf = require("fzf-lua")
-        local worktree = require("git-worktree")
-        local Job = require("plenary.job")
-        
-        -- Get worktree list
+
         local results = {}
         Job:new({
           command = "git",
@@ -461,7 +539,7 @@ require("lazy").setup({
             end
           end,
         }):sync()
-        
+
         fzf.fzf_exec(results, {
           prompt = "Git Worktrees> ",
           actions = {
@@ -472,57 +550,66 @@ require("lazy").setup({
                   worktree.switch_worktree(path)
                 end
               end
-            end
-          }
+            end,
+          },
         })
       end, { desc = "List/switch worktrees" })
-      
-      -- Create new worktree
+
       vim.keymap.set("n", "<leader>wT", function()
-        -- Create centered floating window for input
-        local function input_in_center(prompt, callback)
-          local buf = vim.api.nvim_create_buf(false, true)
-          local width = 60
-          local height = 1
-          local row = math.floor((vim.o.lines - height) / 2)
-          local col = math.floor((vim.o.columns - width) / 2)
-          
-          local win = vim.api.nvim_open_win(buf, true, {
-            relative = 'editor',
-            width = width,
-            height = height,
-            row = row,
-            col = col,
-            style = 'minimal',
-            border = 'rounded',
-            title = prompt,
-            title_pos = 'center',
-          })
-          
-          vim.cmd('startinsert')
-          
-          vim.keymap.set('i', '<CR>', function()
-            local input = vim.api.nvim_buf_get_lines(buf, 0, -1, false)[1] or ""
-            vim.api.nvim_win_close(win, true)
-            callback(input)
-          end, { buffer = buf })
-          
-          vim.keymap.set('i', '<Esc>', function()
-            vim.api.nvim_win_close(win, true)
-            callback(nil)
-          end, { buffer = buf })
+        local base_path = get_worktrees_base_path()
+        if not base_path then
+          vim.notify("Could not determine repository root", vim.log.levels.ERROR)
+          return
         end
-        
+
         input_in_center("Branch name: ", function(branch)
-          if branch and branch ~= "" then
-            input_in_center("Worktree path: ", function(path)
-              if path and path ~= "" then
-                require("git-worktree").create_worktree(branch, path)
-              end
-            end)
-          end
+          if not branch or branch == "" then return end
+
+          local folder_name = sanitize_branch_name(branch)
+          local worktree_path = base_path .. "/" .. folder_name
+
+          input_in_center("Base branch (empty for current): ", function(base_branch)
+            if base_branch == nil then return end
+
+            if base_branch == "" then
+              worktree.create_worktree(worktree_path, branch)
+            else
+              worktree.create_worktree(worktree_path, branch, base_branch)
+            end
+            vim.notify("Created worktree: " .. worktree_path, vim.log.levels.INFO)
+          end, "staging")
         end)
       end, { desc = "Create new worktree" })
+
+      vim.keymap.set("n", "<leader>wd", function()
+        local fzf = require("fzf-lua")
+
+        local results = {}
+        Job:new({
+          command = "git",
+          args = { "worktree", "list" },
+          on_exit = function(j, return_val)
+            if return_val == 0 then
+              results = j:result()
+            end
+          end,
+        }):sync()
+
+        fzf.fzf_exec(results, {
+          prompt = "Delete Worktree> ",
+          actions = {
+            ["default"] = function(selected)
+              if selected and selected[1] then
+                local path = selected[1]:match("^(%S+)")
+                if path then
+                  worktree.delete_worktree(path, true)
+                  vim.notify("Deleted worktree: " .. path, vim.log.levels.INFO)
+                end
+              end
+            end,
+          },
+        })
+      end, { desc = "Delete worktree" })
     end,
   },
 }, {

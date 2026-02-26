@@ -1,36 +1,20 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-#
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Set Oh My Zsh theme conditionally
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  ZSH_THEME=""  # Disable Powerlevel10k for Cursor
-else
-  ZSH_THEME="powerlevel10k/powerlevel10k"
-fi
-
-
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PATH=$PATH:$HOME/go/bin
 export GOPATH=$HOME/usr/local/go/bin/go
 export PATH=$PATH:/Users/taraslysyi/dev/flutter/bin
 
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-vi-mode)
+# Completions (cached, skip security audit)
+autoload -Uz compinit
+compinit -C -u
 
-# Performance optimizations
-ZSH_DISABLE_COMPFIX=true  # Skip compaudit security check
-DISABLE_UPDATE_PROMPT=true  # Don't check for updates on every shell start
-DISABLE_AUTO_UPDATE=true
+# Plugins
+source $HOME/.zsh-defer/zsh-defer.plugin.zsh
+source $HOME/.oh-my-zsh/plugins/git/git.plugin.zsh
+zsh-defer source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+zsh-defer source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
-source $ZSH/oh-my-zsh.sh
-
-. $(brew --prefix)/etc/profile.d/z.sh
+eval "$(zoxide init zsh)"
 export KEYTIMEOUT=1
 # Catppuccin Mocha colors for zsh-autosuggestions
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#585b70"
@@ -62,10 +46,17 @@ ZSH_HIGHLIGHT_STYLES[assign]='fg=#cdd6f4'
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
-ENABLE_CORRECTION="true"
+setopt AUTO_CD
+bindkey -v
+bindkey "^?" backward-delete-char
+bindkey "^H" backward-delete-char
 
-ZVM_CURSOR_STYLE_ENABLED=false
-# User configuration
+# Up/Down arrow: cycle through history entries matching current prefix
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward-end
+bindkey "^[[B" history-beginning-search-forward-end
 
 alias ys='yarn start'
 alias ns='npm start'
@@ -78,6 +69,7 @@ alias ni='cd && .config/nvim && n'
 alias ls='eza --icons --color=always'
 alias ll='eza -l --icons --color=always'
 alias la='eza -la --icons --color=always'
+alias gk='/opt/homebrew/bin/gk'
 # Lazy load nvm for faster startup
 export NVM_DIR="$HOME/.nvm"
 nvm() {
@@ -99,12 +91,18 @@ add-zsh-hook chpwd load-nvmrc
 export LANG="en_US.UTF-8"
 
 
-# Use a minimal prompt in Cursor to avoid command detection issues
+# Native prompt with git info
+autoload -Uz vcs_info
+zstyle ':vcs_info:git:*' formats ' %F{magenta}%b%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{magenta}%b%f %F{red}(%a)%f'
+precmd() { vcs_info }
+setopt PROMPT_SUBST
+
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
   PROMPT='%n@%m:%~%# '
   RPROMPT=''
 else
-  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+  PROMPT='%F{blue}%~%f${vcs_info_msg_0_} %F{green}❯%f '
 fi
 
 
@@ -119,8 +117,12 @@ ulimit -n 10240
 
 
 
-# git account switch
+# git account switch (needs bash completion compat)
+autoload -Uz bashcompinit && bashcompinit
 source $HOME/.git-acc
+
+# Jira credentials
+source $HOME/.jira.env
 
 # Lazy-load Google Cloud SDK for faster startup
 gcloud() {
@@ -133,6 +135,9 @@ gcloud() {
   fi
   gcloud "$@"
 }
-export PATH="/opt/homebrew/opt/go@1.22/bin:$PATH"
+export PATH="/opt/homebrew/opt/go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/Users/taraslysyi/fvm/bin:$PATH"
+
+
 

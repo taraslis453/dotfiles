@@ -3,7 +3,6 @@ vim.keymap.set("", ",", "<Nop>", { desc = "Disable comma" })
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
--- Normal --
 -- Better window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Navigate left" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Navigate down" })

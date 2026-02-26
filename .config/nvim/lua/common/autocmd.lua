@@ -83,6 +83,28 @@ create_autocmds(buffer_dict)
 create_autocmds(filetype_dict)
 
 -------------------------------------------------------------------------------
+------ STRIP TRAILING SPACES FROM YANKED TEXT
+-------------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Strip trailing whitespace from yanked text in clipboard",
+  callback = function()
+    if vim.v.event.operator ~= "y" then
+      return
+    end
+    local reg = vim.v.event.regname
+    -- Handle unnamedplus: empty regname means default register, which syncs to +
+    if reg ~= "" and reg ~= "+" then
+      return
+    end
+    local content = vim.fn.getreg("+")
+    local cleaned = content:gsub("[ \t]+\n", "\n"):gsub("[ \t]+$", "")
+    if cleaned ~= content then
+      vim.fn.setreg("+", cleaned)
+    end
+  end,
+})
+
+-------------------------------------------------------------------------------
 ------ PLUGINS
 -------------------------------------------------------------------------------
 

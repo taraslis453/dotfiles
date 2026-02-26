@@ -55,6 +55,9 @@ if status_ok then
     -- This prevents semantic tokens from overriding treesitter colors
     custom_highlights = function(colors)
       return {
+        -- Visible border between windows
+        WinSeparator = { fg = colors.blue },
+        NormalNC = { bg = colors.mantle },
         -- Link all LSP semantic token types to their treesitter equivalents
         ["@lsp.type.namespace"] = { link = "@namespace" },
         ["@lsp.type.type"] = { link = "@type" },
