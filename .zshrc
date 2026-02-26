@@ -2,7 +2,7 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export PATH=$PATH:$HOME/go/bin
 export GOPATH=$HOME/usr/local/go/bin/go
-export PATH=$PATH:/Users/taraslysyi/dev/flutter/bin
+export PATH=$PATH:$HOME/dev/flutter/bin
 
 # Completions (cached, skip security audit)
 autoload -Uz compinit
@@ -118,26 +118,28 @@ ulimit -n 10240
 
 
 # git account switch (needs bash completion compat)
-autoload -Uz bashcompinit && bashcompinit
-source $HOME/.git-acc
+if [ -f "$HOME/.git-acc" ]; then
+  autoload -Uz bashcompinit && bashcompinit
+  source "$HOME/.git-acc"
+fi
 
 # Jira credentials
-source $HOME/.jira.env
+[ -f "$HOME/.jira.env" ] && source "$HOME/.jira.env"
 
 # Lazy-load Google Cloud SDK for faster startup
 gcloud() {
   unset -f gcloud
-  if [ -f '/Users/taraslysyi/google-cloud-sdk/path.zsh.inc' ]; then 
-    . '/Users/taraslysyi/google-cloud-sdk/path.zsh.inc'
+  if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then
+    . "$HOME/google-cloud-sdk/path.zsh.inc"
   fi
-  if [ -f '/Users/taraslysyi/google-cloud-sdk/completion.zsh.inc' ]; then 
-    . '/Users/taraslysyi/google-cloud-sdk/completion.zsh.inc'
+  if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then
+    . "$HOME/google-cloud-sdk/completion.zsh.inc"
   fi
   gcloud "$@"
 }
 export PATH="/opt/homebrew/opt/go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="/Users/taraslysyi/fvm/bin:$PATH"
+export PATH="$HOME/fvm/bin:$PATH"
 
 
 
