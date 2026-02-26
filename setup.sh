@@ -40,7 +40,7 @@ fi
 
 echo "==> Checking out dotfiles"
 if [ ! -d "$HOME/dotfiles" ]; then
-  git clone --bare git@github.com:taraslis453/dotfiles.git "$HOME/dotfiles"
+  git clone --bare git@github.com:taras-lysyi/dotfiles.git "$HOME/dotfiles"
 fi
 
 config() {

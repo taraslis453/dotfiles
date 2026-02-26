@@ -5,13 +5,13 @@ macOS development environment — Catppuccin Mocha throughout. One command to se
 ## Setup
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/taraslis453/dotfiles/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/taras-lysyi/dotfiles/main/setup.sh | bash
 ```
 
 Or clone and run manually:
 
 ```bash
-git clone --bare git@github.com:taraslis453/dotfiles.git $HOME/dotfiles
+git clone --bare git@github.com:taras-lysyi/dotfiles.git $HOME/dotfiles
 ./setup.sh
 ```
 
